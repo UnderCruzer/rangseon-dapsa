@@ -4,10 +4,22 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "concurrently -k -n api,web -c yellow,cyan \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "node --env-file-if-exists=.env --watch server.js",
+    "dev:web": "vite",
+    "build": "vite build",
     "start": "node --env-file-if-exists=.env server.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",
+    "@sparkjsdev/spark": "^2.2.0",
+    "maplibre-gl": "^5.24.0",
+    "pretendard": "^1.3.9",
+    "three": "^0.180.0",
     "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "vite": "^8.3.1"
   }
 }

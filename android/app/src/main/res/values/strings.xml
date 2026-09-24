@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Trip3D</string>
+    <string name="title_activity_main">Trip3D</string>
+    <string name="package_name">dev.undercruzer.trip3d</string>
+    <string name="custom_url_scheme">dev.undercruzer.trip3d</string>
+</resources>

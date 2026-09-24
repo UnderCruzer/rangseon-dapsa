@@ -2,6 +2,7 @@ import "pretendard/dist/web/variable/pretendardvariable.css";
 import "./style.css";
 import { MapLibreRenderer, phaseOf } from "./renderer-maplibre.js";
 import { apiUrl } from "./config.js";
+import { setupNative } from "./native.js";
 import { pickPreset } from "./presets.js";
 import { sceneFor } from "./scenes.js";
 
@@ -331,6 +332,14 @@ async function main() {
     if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); $("prompt-form").requestSubmit(); }
   });
   $("enter").addEventListener("click", enterStop);
+  setupNative({
+    // 뒤로가기: 1인칭 → 지도. 지도에서는 앱 종료
+    onBack: () => {
+      if (!document.body.classList.contains("exploring")) return false;
+      explore?.close();
+      return true;
+    },
+  });
   $("prev").addEventListener("click", () => goTo(state.index - 1));
   $("next").addEventListener("click", () => goTo(state.index + 1));
   $("play").addEventListener("click", () => {

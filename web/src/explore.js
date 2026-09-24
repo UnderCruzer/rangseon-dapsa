@@ -3,6 +3,57 @@ import * as THREE from "three";
 import { SparkRenderer, SplatMesh, SparkControls } from "@sparkjsdev/spark";
 
 const $ = (id) => document.getElementById(id);
+const WALK_SPEED = 1.6; // 장면 단위/초
+const UP = new THREE.Vector3(0, 1, 0);
+const _forward = new THREE.Vector3();
+const _right = new THREE.Vector3();
+
+// 화면 왼쪽 아래 가상 조이스틱. value는 -1~1 (y는 위로 밀면 음수)
+class Joystick {
+  constructor(el) {
+    this.el = el;
+    this.value = { x: 0, y: 0 };
+    this.pointerId = null;
+    const radius = () => el.clientWidth / 2;
+
+    const move = (e) => {
+      const r = el.getBoundingClientRect();
+      let dx = e.clientX - (r.left + r.width / 2);
+      let dy = e.clientY - (r.top + r.height / 2);
+      const max = radius() - 12;
+      const len = Math.hypot(dx, dy);
+      if (len > max) { dx *= max / len; dy *= max / len; }
+      el.style.setProperty("--jx", `${dx}px`);
+      el.style.setProperty("--jy", `${dy}px`);
+      this.value = { x: dx / max, y: dy / max };
+    };
+    const end = (e) => {
+      if (e.pointerId !== this.pointerId) return;
+      this.pointerId = null;
+      el.classList.remove("active");
+      el.style.setProperty("--jx", "0px");
+      el.style.setProperty("--jy", "0px");
+      this.value = { x: 0, y: 0 };
+    };
+
+    el.addEventListener("pointerdown", (e) => {
+      e.stopPropagation();
+      this.pointerId = e.pointerId;
+      el.setPointerCapture(e.pointerId);
+      el.classList.add("active");
+      move(e);
+    });
+    el.addEventListener("pointermove", (e) => { if (e.pointerId === this.pointerId) move(e); });
+    el.addEventListener("pointerup", end);
+    el.addEventListener("pointercancel", end);
+  }
+
+  reset() {
+    this.value = { x: 0, y: 0 };
+    this.el.style.setProperty("--jx", "0px");
+    this.el.style.setProperty("--jy", "0px");
+  }
+}
 
 export class ExploreView {
   constructor(root) {
@@ -38,6 +89,8 @@ export class ExploreView {
     };
     window.addEventListener("resize", this.resize);
 
+    this.joystick = new Joystick($("joystick"));
+
     this.onKey = (e) => {
       if (e.key === "Escape") this.close();
     };
@@ -60,8 +113,12 @@ export class ExploreView {
     this.camera.quaternion.identity();
     this.setControls(true);
     window.addEventListener("keydown", this.onKey);
-    this.renderer.setAnimationLoop(() => {
+    let last = performance.now();
+    this.renderer.setAnimationLoop((now) => {
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
       this.controls.update(this.camera);
+      this.walk(dt);
       this.renderer.render(this.scene, this.camera);
     });
 
@@ -93,9 +150,21 @@ export class ExploreView {
     document.body.classList.remove("exploring");
     window.removeEventListener("keydown", this.onKey);
     this.setControls(false);
+    this.joystick.reset();
     this.renderer.setAnimationLoop(null);
     this.disposeSplat();
     this.onClose?.();
+  }
+
+  // 조이스틱 입력을 수평 이동으로: 아래를 보고 있어도 땅속으로 파고들지 않게 고개 방향(yaw)만 쓴다
+  walk(dt) {
+    const { x, y } = this.joystick.value;
+    if (!x && !y) return;
+    const forward = this.camera.getWorldDirection(_forward).setY(0).normalize();
+    const right = _right.crossVectors(forward, UP);
+    this.camera.position
+      .addScaledVector(forward, -y * WALK_SPEED * dt)
+      .addScaledVector(right, x * WALK_SPEED * dt);
   }
 
   setControls(on) {

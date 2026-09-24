@@ -210,3 +210,17 @@ kbd {
   .touch-only { display: inline; }
   .desktop-only { display: none; }
 }
+
+/* 1인칭 조이스틱 (터치 기기) */
+#joystick {
+  position: absolute; left: calc(28px + var(--sal)); bottom: calc(72px + var(--sab));
+  width: 128px; height: 128px; border-radius: 50%; touch-action: none;
+  background: rgba(16, 19, 27, .45); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(6px);
+}
+#joystick i {
+  position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%;
+  background: rgba(255,255,255,.85); box-shadow: 0 4px 14px rgba(0,0,0,.35);
+  transform: translate(var(--jx, 0px), var(--jy, 0px)); transition: transform .12s;
+}
+#joystick.active i { transition: none; }
+@media (hover: none) { #joystick.touch-only { display: block; } }

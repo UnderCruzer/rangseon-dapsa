@@ -2,7 +2,7 @@ import "pretendard/dist/web/variable/pretendardvariable.css";
 import "./style.css";
 import { MapLibreRenderer, phaseOf } from "./renderer-maplibre.js";
 import { apiUrl } from "./config.js";
-import { setupNative } from "./native.js";
+import { setupNative, keepAwake } from "./native.js";
 import { pickPreset } from "./presets.js";
 import { sceneFor } from "./scenes.js";
 
@@ -117,6 +117,12 @@ function renderList(trip) {
 // ---------- 투어 ----------
 function updatePlayButton() {
   $("play").textContent = state.playing ? "❚❚" : "▶";
+  updateAwake();
+}
+
+// 자동 투어 중이거나 1인칭 탐색 중일 때만 화면을 켜 둔다
+function updateAwake() {
+  keepAwake(state.playing || document.body.classList.contains("exploring"));
 }
 
 function runProgress(ms) {
@@ -259,9 +265,12 @@ async function enterStop() {
       // three.js·Spark는 처음 들어갈 때만 불러온다
       const { ExploreView } = await import("./explore.js");
       explore = new ExploreView($("explore"));
+      explore.onClose = updateAwake;
       $("explore-close").addEventListener("click", () => explore.close());
     }
-    await explore.open(stop, sceneFor(stop));
+    const opening = explore.open(stop, sceneFor(stop));
+    updateAwake();
+    await opening;
   } catch (err) {
     setStatus(`1인칭 보기 실패: ${err.message}`, "error");
   }

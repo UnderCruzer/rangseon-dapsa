@@ -76,7 +76,8 @@ export class ExploreView {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color("#0b0d12");
     this.camera = new THREE.PerspectiveCamera(70, 1, 0.01, 1000);
-    this.scene.add(new SparkRenderer({ renderer: this.renderer }));
+    this.spark = new SparkRenderer({ renderer: this.renderer });
+    this.scene.add(this.spark);
 
     this.controls = new SparkControls({ canvas: this.renderer.domElement });
     this.controls.fpsMovement.moveSpeed = 1.2;
@@ -107,7 +108,7 @@ export class ExploreView {
       ? `샘플 장면 · 실제 ${stop.name} 아님 · ${scene.credit}`
       : `AI 생성 장면 · 사진 밖 영역은 모델이 채운 것`;
     $("explore-source").classList.toggle("sample", scene.sample);
-    this.setLoading(0);
+    this.setLoading("장면 불러오는 중…");
 
     this.camera.position.set(0, 0, 0);
     this.camera.quaternion.identity();
@@ -120,6 +121,11 @@ export class ExploreView {
       this.controls.update(this.camera);
       this.walk(dt);
       this.renderer.render(this.scene, this.camera);
+      // 파일 로드(initialized)가 끝나도 GPU 업로드·첫 정렬 전에는 화면이 비어 있다. 실제로 그려질 때 로딩 표시를 내린다
+      if (this.waitingFirstFrame && this.spark.activeSplats > 0 && this.spark.lastSortTime > 0) {
+        this.waitingFirstFrame = false;
+        this.setLoading(null);
+      }
     });
 
     this.disposeSplat();
@@ -127,7 +133,9 @@ export class ExploreView {
     const splat = new SplatMesh({
       url: scene.url,
       onProgress: (e) => {
-        if (loadId === this.loadId && e.lengthComputable) this.setLoading(e.loaded / e.total);
+        if (loadId === this.loadId && e.lengthComputable) {
+          this.setLoading(`장면 불러오는 중 ${Math.round((e.loaded / e.total) * 100)}%`);
+        }
       },
     });
     splat.quaternion.set(1, 0, 0, 0); // 대부분의 3DGS 결과물은 y축이 뒤집혀 있음
@@ -137,15 +145,18 @@ export class ExploreView {
 
     try {
       await splat.initialized;
-      if (loadId === this.loadId) this.setLoading(null);
+      if (loadId !== this.loadId) return;
+      this.waitingFirstFrame = true;
+      this.setLoading("장면 그리는 중…");
     } catch (err) {
-      if (loadId === this.loadId) this.setLoading(null, `장면을 불러오지 못했어요: ${err.message}`);
+      if (loadId === this.loadId) this.setLoading(`장면을 불러오지 못했어요: ${err.message}`, true);
     }
   }
 
   close() {
     if (this.root.hidden) return;
     this.loadId++;
+    this.waitingFirstFrame = false;
     this.root.hidden = true;
     document.body.classList.remove("exploring");
     window.removeEventListener("keydown", this.onKey);
@@ -179,10 +190,11 @@ export class ExploreView {
     this.splat = null;
   }
 
-  setLoading(progress, error) {
+  // text가 null이면 숨김
+  setLoading(text, isError = false) {
     const box = $("explore-loading");
-    box.hidden = progress === null && !error;
-    box.classList.toggle("error", Boolean(error));
-    $("explore-loading-text").textContent = error ?? (progress ? `장면 불러오는 중 ${Math.round(progress * 100)}%` : "장면 불러오는 중…");
+    box.hidden = text === null;
+    box.classList.toggle("error", isError);
+    if (text !== null) $("explore-loading-text").textContent = text;
   }
 }

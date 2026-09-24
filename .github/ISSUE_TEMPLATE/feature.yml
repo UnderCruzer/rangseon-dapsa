@@ -1,0 +1,35 @@
+name: 기능
+description: 새 기능이나 개선
+labels: [feature]
+body:
+  - type: textarea
+    id: background
+    attributes:
+      label: 배경
+      description: 왜 필요한가
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 범위
+      description: 이번에 하는 것 (체크리스트 권장)
+    validations:
+      required: true
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: 제외
+      description: 이번에 하지 않는 것
+  - type: input
+    id: depends
+    attributes:
+      label: 선행 이슈
+      placeholder: "#5"
+  - type: textarea
+    id: done
+    attributes:
+      label: 완료 조건
+      description: 무엇을 확인하면 끝인가
+    validations:
+      required: true

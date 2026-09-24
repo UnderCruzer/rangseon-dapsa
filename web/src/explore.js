@@ -17,7 +17,9 @@ export class ExploreView {
   setup() {
     if (this.renderer) return;
     this.renderer = new THREE.WebGLRenderer({ antialias: false });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // 스플랫은 픽셀당 비용이 커서 터치 기기(대부분 폰)는 1.5로 더 낮춘다
+    const touch = window.matchMedia("(hover: none)").matches;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, touch ? 1.5 : 2));
     this.stage.append(this.renderer.domElement);
 
     this.scene = new THREE.Scene();

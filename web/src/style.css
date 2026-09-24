@@ -13,16 +13,22 @@
   --warn: #ff7a6b;
   --radius: 16px;
   --panel-w: 380px;
+  /* 상태바·내비게이션 바 영역. Capacitor SystemBars가 --safe-area-inset-*를 넣어 준다 */
+  --sat: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
+  --sab: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
+  --sal: var(--safe-area-inset-left, env(safe-area-inset-left, 0px));
+  --sar: var(--safe-area-inset-right, env(safe-area-inset-right, 0px));
 }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); overflow: hidden; }
-body { font-family: "Pretendard", system-ui, -apple-system, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }
+body { font-family: "Pretendard Variable", "Pretendard", system-ui, -apple-system, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }
 button { font: inherit; color: inherit; cursor: pointer; }
 [hidden] { display: none !important; }
 
 /* ---------- 3D 무대 ---------- */
-#stage, .view { position: fixed; inset: 0; }
+/* #id로 지정: 번들에서 maplibre-gl.css(.maplibregl-map { position: relative })가 뒤에 붙어도 이기도록 */
+#stage, #map, #globe { position: fixed; inset: 0; }
 #vignette {
   position: fixed; inset: 0; pointer-events: none;
   background: radial-gradient(120% 90% at 60% 45%, transparent 55%, rgba(0,0,0,.45) 100%);
@@ -32,7 +38,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---------- 좌측 패널 ---------- */
 #panel {
-  position: fixed; top: 16px; left: 16px; bottom: 16px; width: var(--panel-w);
+  position: fixed; top: calc(16px + var(--sat)); left: calc(16px + var(--sal)); bottom: calc(16px + var(--sab)); width: var(--panel-w);
   display: flex; flex-direction: column; gap: 12px;
   padding: 18px; border-radius: var(--radius);
   background: var(--glass); backdrop-filter: blur(18px) saturate(140%);
@@ -96,7 +102,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .stop .unverified { font-size: 11px; color: var(--muted); margin-left: 4px; }
 
 /* ---------- HUD ---------- */
-#hud { position: fixed; top: 16px; right: 16px; display: flex; gap: 8px; z-index: 5; }
+#hud { position: fixed; top: calc(16px + var(--sat)); right: calc(16px + var(--sar)); display: flex; gap: 8px; z-index: 5; }
 .seg, .clock {
   display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 12px;
   background: var(--glass); backdrop-filter: blur(14px); border: 1px solid var(--line);
@@ -107,7 +113,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---------- 현장 카드 ---------- */
 #card {
-  position: fixed; left: calc(var(--panel-w) + 32px); right: 16px; bottom: 16px; margin: 0 auto; max-width: 560px;
+  position: fixed; left: calc(var(--panel-w) + 32px + var(--sal)); right: calc(16px + var(--sar)); bottom: calc(16px + var(--sab)); margin: 0 auto; max-width: 560px;
   padding: 18px 20px 14px; border-radius: var(--radius);
   background: var(--glass-strong); backdrop-filter: blur(18px); border: 1px solid var(--line);
   box-shadow: 0 20px 60px rgba(0,0,0,.45); z-index: 5;
@@ -150,10 +156,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---------- 모바일 ---------- */
 @media (max-width: 760px) {
-  #panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 46vh; border-radius: 18px 18px 0 0; padding: 14px 16px; }
-  body.touring #panel { max-height: 108px; }
-  #hud { top: 12px; right: 12px; }
-  #card { left: 12px; right: 12px; bottom: auto; top: 60px; padding: 14px 16px 12px; }
+  #panel {
+    top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 46vh; border-radius: 18px 18px 0 0;
+    padding: 14px calc(16px + var(--sar)) calc(14px + var(--sab)) calc(16px + var(--sal));
+  }
+  body.touring #panel { max-height: calc(108px + var(--sab)); }
+  #hud { top: calc(12px + var(--sat)); right: calc(12px + var(--sar)); }
+  #card { left: calc(12px + var(--sal)); right: calc(12px + var(--sar)); bottom: auto; top: calc(60px + var(--sat)); padding: 14px 16px 12px; }
   #card h3 { font-size: 18px; }
   #card-desc { font-size: 13px; }
 }
@@ -170,7 +179,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .explore-stage { position: absolute; inset: 0; }
 .explore-stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
 .explore-top {
-  position: absolute; top: 16px; left: 16px; right: 16px;
+  position: absolute; top: calc(16px + var(--sat)); left: calc(16px + var(--sal)); right: calc(16px + var(--sar));
   display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; pointer-events: none;
 }
 .explore-top > div, #explore-close {
@@ -188,7 +197,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 #explore-loading.error { color: var(--warn); }
 .explore-hint {
-  position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); margin: 0;
+  position: absolute; left: 50%; bottom: calc(20px + var(--sab)); transform: translateX(-50%); margin: 0;
   padding: 8px 14px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line);
   font-size: 12px; color: var(--muted); white-space: nowrap; pointer-events: none;
 }

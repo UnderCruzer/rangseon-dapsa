@@ -7,8 +7,10 @@ import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import * as z from "zod/v4";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const PUBLIC_DIR = path.join(here, "public");
-const PORT = Number(process.env.PORT ?? 5173);
+// 개발 중에는 Vite(5173)가 화면을, 이 서버(8787)가 /api를 맡는다. 운영에서는 빌드된 dist/도 같이 서빙.
+const STATIC_DIR = path.join(here, "dist");
+// API_PORT가 우선: 개발 도구가 PORT를 Vite 포트로 넣어 두는 경우가 있어서. 호스팅은 보통 PORT만 준다.
+const PORT = Number(process.env.API_PORT ?? process.env.PORT ?? 8787);
 const HAS_LLM = Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
 
 const client = HAS_LLM ? new Anthropic() : null;
@@ -108,6 +110,9 @@ const MIME = {
   ".css": "text/css; charset=utf-8",
   ".json": "application/json",
   ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".woff2": "font/woff2",
+  ".woff": "font/woff",
 };
 
 function sendJson(res, status, body) {
@@ -147,9 +152,9 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 정적 파일
-  const filePath = path.join(PUBLIC_DIR, url.pathname === "/" ? "index.html" : url.pathname);
-  if (!filePath.startsWith(PUBLIC_DIR)) return sendJson(res, 403, { error: "forbidden" });
+  // 정적 파일 (npm run build 결과물)
+  const filePath = path.join(STATIC_DIR, url.pathname === "/" ? "index.html" : url.pathname);
+  if (!filePath.startsWith(STATIC_DIR)) return sendJson(res, 403, { error: "forbidden" });
   try {
     const body = await fs.readFile(filePath);
     res.writeHead(200, { "Content-Type": MIME[path.extname(filePath)] ?? "application/octet-stream" });
@@ -160,5 +165,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`trip3d → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"})`);
+  console.log(`trip3d api → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"})`);
 });

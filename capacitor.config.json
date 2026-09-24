@@ -1,0 +1,13 @@
+{
+  "appId": "dev.undercruzer.trip3d",
+  "appName": "Trip3D",
+  "webDir": "dist",
+  "backgroundColor": "#0b0d12",
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover",
+      "style": "DARK"
+    }
+  }
+}

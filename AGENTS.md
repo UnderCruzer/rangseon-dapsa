@@ -45,16 +45,25 @@ Trip3D에서 작업하는 사람과 AI 에이전트가 따르는 단일 기준 �
 ## 구조
 
 ```
-server.js            API 서버 (/api/config, /api/plan) + 정적 파일 서빙
-public/
-  index.html         화면 뼈대
-  style.css
-  app.js             투어 진행·일정 목록·동선 경고
-  renderer-*.js      지도 렌더러 (maplibre: 기본, cesium: Google 실사)
-  explore.js         1인칭 스플랫 뷰어
-  scenes.js          장소 → 장면 연결
-  presets.js         데모 일정
+server.js              API 서버 (/api/config, /api/plan) + 운영 시 dist/ 서빙
+vite.config.js         Vite 설정 (root: web, 개발 중 /api → 8787 프록시)
+web/
+  index.html           화면 뼈대
+  src/
+    app.js             진입점: 투어 진행·일정 목록·동선 경고
+    config.js          API 주소 (VITE_API_BASE)
+    renderer-*.js      지도 렌더러 (maplibre: 기본, cesium: Google 실사)
+    explore.js         1인칭 스플랫 뷰어 (동적 import)
+    scenes.js          장소 → 장면 연결
+    presets.js         데모 일정
+    style.css
+  src/native.js        Capacitor 연동 (뒤로가기, 외부 링크). 웹에서는 아무것도 안 함
+capacitor.config.json  앱 ID·SystemBars 설정
+android/               Capacitor Android 프로젝트 (커밋함, 빌드 산출물 제외)
+dist/                  빌드 결과 (커밋하지 않음)
 ```
+
+라이브러리는 npm으로 번들한다(maplibre-gl, three, @sparkjsdev/spark, pretendard). 예외: Cesium은 실사 모드 전용이고 정적 자산이 많아 CDN에서 동적 로드한다.
 
 렌더러는 같은 인터페이스(`init` `show` `hide` `setStops` `highlight` `overview` `flyTo` `startOrbit` `stopOrbit` `setPhase`)를 구현한다. 새 렌더러를 추가하면 이 목록을 맞춘다.
 
@@ -63,8 +72,33 @@ public/
 ```bash
 npm install
 cp .env.example .env   # 키는 선택
-npm start              # http://localhost:5173
+npm run dev            # 웹 http://localhost:5173 + API :8787
+npm run build          # dist/ 생성
+npm start              # API + dist/ 서빙 (운영과 같은 구성)
 ```
+
+| 환경변수 | 어디서 | 설명 |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | 서버 | 있으면 실제 일정 생성, 없으면 데모 |
+| `GOOGLE_MAPS_API_KEY` | 서버 → `/api/config`로 전달 | 있으면 실사 3D 토글 |
+| `API_PORT` / `PORT` | 서버 | API 포트. `API_PORT` 우선 (기본 8787) |
+| `VITE_API_BASE` | 웹 빌드 | 앱처럼 API가 다른 출처에 있을 때 서버 주소 |
+
+### Android 앱
+
+Capacitor 8은 **JDK 21**이 필요하다. 시스템 기본 Java가 다르면 Android Studio 내장 JBR을 쓴다.
+
+```bash
+export JAVA_HOME="<Android Studio.app>/Contents/jbr/Contents/Home"
+npm run android:apk   # 웹 빌드 → cap sync → 디버그 APK (android/app/build/outputs/apk/debug/)
+npm run android:run   # 연결된 기기·에뮬레이터에 설치하고 실행
+```
+
+- `android/local.properties`(SDK 경로)는 커밋하지 않는다. 없으면 `sdk.dir=$HOME/Library/Android/sdk`로 만든다.
+- 앱에서 일정 생성을 쓰려면 `VITE_API_BASE`를 배포 서버로 두고 빌드한다(#7). 비어 있으면 데모 모드.
+- WebView 디버깅: 디버그 빌드는 `chrome://inspect`로 붙을 수 있다.
+- 웹 코드에서 기기 기능은 `native.js`를 거친다. 웹에서도 같은 코드가 돌아야 하므로 `isNative`로 분기한다.
+- 스타일은 safe-area 변수(`--sat` `--sab` `--sal` `--sar`)로 상태바·내비게이션 바를 피한다.
 
 ## 하지 말 것
 

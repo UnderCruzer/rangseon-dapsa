@@ -7,8 +7,8 @@ export default defineConfig({
   build: {
     outDir: "../dist",
     emptyOutDir: true,
-    // maplibre·three·spark가 커서 경고 기준을 올린다 (1인칭 뷰어는 동적 import로 분리됨)
-    chunkSizeWarningLimit: 1500,
+    // 1인칭 뷰어 청크(three + Spark, WASM 포함)가 약 3MB라 기준을 올린다. 동적 import라 첫 화면에는 안 실림.
+    chunkSizeWarningLimit: 3200,
   },
   server: {
     port: 5173,

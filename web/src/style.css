@@ -27,7 +27,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
 [hidden] { display: none !important; }
 
 /* ---------- 3D 무대 ---------- */
-#stage, .view { position: fixed; inset: 0; }
+/* #id로 지정: 번들에서 maplibre-gl.css(.maplibregl-map { position: relative })가 뒤에 붙어도 이기도록 */
+#stage, #map, #globe { position: fixed; inset: 0; }
 #vignette {
   position: fixed; inset: 0; pointer-events: none;
   background: radial-gradient(120% 90% at 60% 45%, transparent 55%, rgba(0,0,0,.45) 100%);

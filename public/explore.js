@@ -72,6 +72,7 @@ export class ExploreView {
       },
     });
     splat.quaternion.set(1, 0, 0, 0); // 대부분의 3DGS 결과물은 y축이 뒤집혀 있음
+    splat.position.fromArray(scene.position ?? [0, 0, 0]);
     this.splat = splat;
     this.scene.add(splat);
 

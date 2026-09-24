@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Trip3D</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="stage">
+    <div id="map" class="view"></div>
+    <div id="globe" class="view" hidden></div>
+    <div id="vignette"></div>
+  </div>
+
+  <aside id="panel">
+    <header class="brand">
+      <span class="logo">◭</span>
+      <div>
+        <h1>Trip3D</h1>
+        <p>한 줄로 떠나는 사전 답사</p>
+      </div>
+    </header>
+
+    <form id="prompt-form">
+      <textarea id="prompt" rows="2" placeholder="예) 부산 당일치기, 바다 위주로 걷고 야경으로 마무리"></textarea>
+      <button id="go" type="submit">떠나기</button>
+    </form>
+    <div id="examples"></div>
+    <p id="status" role="status"></p>
+
+    <section id="trip" hidden>
+      <div class="trip-head">
+        <h2 id="trip-title"></h2>
+        <p id="trip-summary"></p>
+      </div>
+      <ol id="stops"></ol>
+    </section>
+  </aside>
+
+  <div id="hud">
+    <div class="seg" id="mode-toggle" hidden>
+      <button data-mode="satellite" class="on">위성 3D</button>
+      <button data-mode="google">실사 3D</button>
+    </div>
+    <div class="clock"><span id="clock-icon">☀</span><span id="clock-time">--:--</span></div>
+  </div>
+
+  <article id="card" hidden>
+    <div class="card-top">
+      <span class="badge" id="card-index"></span>
+      <span class="meta" id="card-meta"></span>
+    </div>
+    <h3 id="card-name"></h3>
+    <p id="card-desc"></p>
+    <p class="tip"><b>팁</b><span id="card-tip"></span></p>
+    <p class="move" id="card-move"></p>
+    <div class="controls">
+      <button id="prev" aria-label="이전 장소">‹</button>
+      <button id="play" aria-label="자동 투어">❚❚</button>
+      <button id="next" aria-label="다음 장소">›</button>
+      <a id="roadview" target="_blank" rel="noopener">거리뷰로 보기 ↗</a>
+    </div>
+    <div class="progress"><i id="progress-bar"></i></div>
+  </article>
+
+  <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

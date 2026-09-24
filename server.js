@@ -9,7 +9,8 @@ import * as z from "zod/v4";
 const here = path.dirname(fileURLToPath(import.meta.url));
 // 개발 중에는 Vite(5173)가 화면을, 이 서버(8787)가 /api를 맡는다. 운영에서는 빌드된 dist/도 같이 서빙.
 const STATIC_DIR = path.join(here, "dist");
-const PORT = Number(process.env.PORT ?? process.env.API_PORT ?? 8787);
+// API_PORT가 우선: 개발 도구가 PORT를 Vite 포트로 넣어 두는 경우가 있어서. 호스팅은 보통 PORT만 준다.
+const PORT = Number(process.env.API_PORT ?? process.env.PORT ?? 8787);
 const HAS_LLM = Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
 
 const client = HAS_LLM ? new Anthropic() : null;

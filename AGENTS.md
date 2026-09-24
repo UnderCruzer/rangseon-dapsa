@@ -15,6 +15,7 @@ Trip3D에서 작업하는 사람과 AI 에이전트가 따르는 단일 기준 �
    - `Co-Authored-By` 줄은 넣지 않는다.
 4. **PR**: 본문에 `Closes #번호`, 변경 사항, 확인한 것 / 못 한 것을 체크리스트로. 선행 PR이 있으면 그 브랜치를 base로 쌓는다(stacked PR).
 5. 머지는 merge commit(작업 단위 커밋 보존). 머지 후 브랜치 삭제.
+6. **스택 PR 머지 순서**: 아래 PR을 머지하기 **전에** 바로 위 PR의 base를 main으로 바꾼다(`gh pr edit <위 PR> --base main`). 그대로 아래 PR을 `--delete-branch`로 머지하면 GitHub이 위 PR을 닫아 버리거나, 위 PR이 main이 아닌 브랜치로 머지된다.
 
 ### 라벨
 

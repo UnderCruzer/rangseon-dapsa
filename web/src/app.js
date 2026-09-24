@@ -5,6 +5,7 @@ import { apiUrl } from "./config.js";
 import { setupNative, keepAwake } from "./native.js";
 import { pickPreset } from "./presets.js";
 import { sceneFor } from "./scenes.js";
+import { Sheet } from "./sheet.js";
 
 const DWELL_MS = 9000; // 한 장소에 머무는 시간(자동 투어)
 const DAY_COLORS = ["#ffb547", "#5ec8ff", "#b98cff", "#7be3a0"];
@@ -151,7 +152,17 @@ function showCard(stop, i) {
   $("card-move").textContent = stop.move_from_prev ? `이동: ${stop.move_from_prev}` : "";
   $("roadview").href = roadviewUrl(stop);
   document.querySelectorAll(".stop").forEach((el) => el.classList.toggle("active", Number(el.dataset.index) === i));
-  document.querySelector(".stop.active")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  scrollListTo(document.querySelector(".stop.active"));
+}
+
+// 현재 장소가 목록에 보이게. scrollIntoView는 overflow:hidden인 패널(바텀시트)까지 밀어 올리므로 목록만 직접 스크롤
+function scrollListTo(el) {
+  const list = $("stops");
+  if (!el) return;
+  const top = el.offsetTop - list.offsetTop;
+  if (top < list.scrollTop || top + el.offsetHeight > list.scrollTop + list.clientHeight) {
+    list.scrollTo({ top: top - list.clientHeight / 2 + el.offsetHeight / 2, behavior: "smooth" });
+  }
 }
 
 async function goTo(i) {
@@ -169,6 +180,7 @@ async function goTo(i) {
   state.renderer.highlight(i);
   runProgress(0);
   document.body.classList.add("touring");
+  sheet?.set("collapsed"); // 폰에서는 지도가 보이게 시트를 접는다
 
   await state.renderer.flyTo(stop, heading);
   if (token !== state.token) return;
@@ -254,6 +266,7 @@ async function onSubmit(e) {
 
 // ---------- 1인칭 탐색 ----------
 let explore = null;
+let sheet = null;
 
 async function enterStop() {
   const stop = state.trip?.stops[state.index];
@@ -340,6 +353,7 @@ async function main() {
   $("prompt").addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); $("prompt-form").requestSubmit(); }
   });
+  sheet = new Sheet($("panel"), [document.querySelector(".sheet-handle"), document.querySelector("#panel .brand")]);
   $("enter").addEventListener("click", enterStop);
   setupNative({
     // 뒤로가기: 1인칭 → 지도. 지도에서는 앱 종료

@@ -1,4 +1,7 @@
+import "pretendard/dist/web/variable/pretendardvariable.css";
+import "./style.css";
 import { MapLibreRenderer, phaseOf } from "./renderer-maplibre.js";
+import { apiUrl } from "./config.js";
 import { pickPreset } from "./presets.js";
 import { sceneFor } from "./scenes.js";
 
@@ -213,7 +216,7 @@ async function plan(prompt) {
     await new Promise((r) => setTimeout(r, 500));
     return { trip: pickPreset(prompt), demo: true };
   }
-  const res = await fetch("/api/plan", {
+  const res = await fetch(apiUrl("/api/plan"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt }),
@@ -298,7 +301,7 @@ async function switchMode(mode) {
 // ---------- 시작 ----------
 async function main() {
   try {
-    state.config = await (await fetch("/api/config")).json();
+    state.config = await (await fetch(apiUrl("/api/config"))).json();
   } catch { /* 정적 서버로 열었을 때: 데모 모드 */ }
 
   // 지도 타일을 기다리는 동안에도 입력은 받을 수 있게, 로딩은 기다리지 않고 시작만 해 둔다

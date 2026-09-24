@@ -1,5 +1,6 @@
 // 키 없이 도는 기본 3D 렌더러: Esri 위성사진 + AWS 지형 + OpenFreeMap(OSM) 3D 건물
-const { maplibregl } = window;
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 
 const SKY = {
   day:    { sky: "#6fa8e0", horizon: "#d9ecff", fog: "#cfe3f5", brightness: 1.0,  building: "#f1ede6", opacity: 0.82 },

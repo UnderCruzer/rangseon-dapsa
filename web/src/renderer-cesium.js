@@ -79,7 +79,7 @@ export class CesiumRenderer {
         point: { pixelSize: 14, color, outlineColor: C.Color.BLACK, outlineWidth: 2, disableDepthTestDistance: Infinity },
         label: {
           text: `${i + 1}. ${s.name}`,
-          font: "600 13px Pretendard, sans-serif",
+          font: "600 13px \"Pretendard Variable\", sans-serif",
           fillColor: C.Color.WHITE,
           showBackground: true,
           backgroundColor: C.Color.fromCssColorString("rgba(12,14,20,.82)"),

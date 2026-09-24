@@ -1,0 +1,92 @@
+// Claude 키가 없을 때 쓰는 데모 일정. 프롬프트 키워드로 고른다.
+export const PRESETS = [
+  {
+    keywords: ["부산", "busan", "해운대", "광안리"],
+    trip: {
+      title: "부산 바다 따라 하루",
+      city: "부산",
+      summary: "해운대에서 광안리 야경까지, 바다를 끼고 걷는 당일치기",
+      stops: [
+        { name: "해동용궁사", lat: 35.1883, lng: 129.2233, day: 1, time: "09:00", stay_minutes: 60, category: "문화",
+          description: "바닷가 바위 위에 절이 걸터앉아 있고, 계단을 내려가면 파도 소리가 법당 바로 아래서 들립니다.",
+          tip: "10시 이후엔 단체 관광객이 몰리니 오픈 직후가 사진 찍기 좋습니다.", move_from_prev: "" },
+        { name: "청사포 다릿돌전망대", lat: 35.1596, lng: 129.1955, day: 1, time: "10:40", stay_minutes: 40, category: "자연",
+          description: "바다 위로 뻗은 유리 바닥 전망대 끝에서 발아래로 파도가 부서집니다.",
+          tip: "유리 구간은 덧신을 신어야 해서 입구에서 잠깐 줄을 섭니다.", move_from_prev: "버스 약 25분" },
+        { name: "해운대 블루라인파크 (스카이캡슐)", lat: 35.1611, lng: 129.1741, day: 1, time: "11:40", stay_minutes: 50, category: "명소",
+          description: "해안 절벽 위 레일을 따라 알록달록한 캡슐이 천천히 움직이고, 창밖 한쪽이 온통 바다입니다.",
+          tip: "스카이캡슐은 주말엔 매진이 빨라 온라인 예매가 필수입니다.", move_from_prev: "해변열차로 약 10분" },
+        { name: "해운대해수욕장", lat: 35.1587, lng: 129.1604, day: 1, time: "13:00", stay_minutes: 90, category: "음식",
+          description: "넓은 백사장 뒤로 초고층 빌딩이 병풍처럼 서 있고, 해변 뒷골목엔 국밥·조개구이집이 줄지어 있습니다.",
+          tip: "해운대시장 골목에서 점심을 해결하면 해변 쪽보다 저렴합니다.", move_from_prev: "도보 15분" },
+        { name: "동백섬 누리마루 APEC하우스", lat: 35.1532, lng: 129.1520, day: 1, time: "15:00", stay_minutes: 60, category: "자연",
+          description: "동백나무 숲 산책로가 섬을 한 바퀴 돌고, 끝에서 광안대교가 정면으로 보입니다.",
+          tip: "산책로 한 바퀴는 30분 정도, 등대 쪽 출렁다리가 포토스팟입니다.", move_from_prev: "해변 따라 도보 15분" },
+        { name: "더베이101", lat: 35.1566, lng: 129.1522, day: 1, time: "16:30", stay_minutes: 60, category: "카페",
+          description: "요트 계류장 너머로 마린시티 빌딩들이 물에 비치는 수변 라운지입니다.",
+          tip: "해 질 녘 빌딩 반영이 가장 예쁘니 테라스 자리를 노리세요.", move_from_prev: "도보 5분" },
+        { name: "광안리해수욕장", lat: 35.1532, lng: 129.1186, day: 1, time: "19:00", stay_minutes: 120, category: "야경",
+          description: "해가 지면 광안대교에 조명이 켜지고, 해변 전체가 다리 불빛으로 물듭니다.",
+          tip: "토요일 밤에는 드론쇼가 열리는 날이 있으니 일정을 미리 확인하세요.", move_from_prev: "택시 약 20분" },
+      ],
+    },
+  },
+  {
+    keywords: ["서울", "seoul", "경복궁", "남산"],
+    trip: {
+      title: "서울 고궁에서 남산까지",
+      city: "서울",
+      summary: "궁궐과 한옥 골목을 걷고 남산에서 야경으로 마무리",
+      stops: [
+        { name: "경복궁", lat: 37.5796, lng: 126.9770, day: 1, time: "09:30", stay_minutes: 120, category: "문화",
+          description: "광화문을 지나면 근정전 뒤로 북악산이 겹쳐 보이고, 넓은 박석 마당이 펼쳐집니다.",
+          tip: "한복을 입으면 입장료가 무료이고, 10시·14시 수문장 교대식이 볼거리입니다.", move_from_prev: "" },
+        { name: "북촌한옥마을", lat: 37.5826, lng: 126.9850, day: 1, time: "12:00", stay_minutes: 60, category: "명소",
+          description: "언덕길 양옆으로 기와지붕이 층층이 이어지고, 골목 끝에 서울 도심 빌딩이 겹쳐 보입니다.",
+          tip: "실제 주민 거주지라 17시 이후엔 관광객 출입이 제한됩니다.", move_from_prev: "도보 15분" },
+        { name: "인사동", lat: 37.5740, lng: 126.9850, day: 1, time: "13:30", stay_minutes: 90, category: "음식",
+          description: "전통 공예품 가게와 찻집이 늘어선 거리, 쌈지길의 나선형 경사로가 눈에 띕니다.",
+          tip: "골목 안쪽 한정식·찻집이 큰길보다 조용합니다.", move_from_prev: "도보 10분" },
+        { name: "청계천", lat: 37.5692, lng: 126.9780, day: 1, time: "15:30", stay_minutes: 40, category: "자연",
+          description: "빌딩 사이 지하로 내려가면 물길을 따라 징검다리와 산책로가 이어집니다.",
+          tip: "청계광장에서 시작해 동쪽으로 걸으면 사람이 점점 줄어듭니다.", move_from_prev: "도보 10분" },
+        { name: "N서울타워", lat: 37.5512, lng: 126.9882, day: 1, time: "18:30", stay_minutes: 120, category: "야경",
+          description: "남산 꼭대기에서 서울 도심이 사방으로 펼쳐지고, 해가 지면 한강 다리 불빛까지 보입니다.",
+          tip: "케이블카 대기가 길면 남산 순환버스(01번)가 더 빠릅니다.", move_from_prev: "버스 약 25분" },
+      ],
+    },
+  },
+  {
+    keywords: ["도쿄", "tokyo", "일본", "東京"],
+    trip: {
+      title: "도쿄 동쪽에서 서쪽으로",
+      city: "도쿄",
+      summary: "아사쿠사의 옛 도쿄에서 시부야의 밤까지",
+      stops: [
+        { name: "센소지", lat: 35.7148, lng: 139.7967, day: 1, time: "08:30", stay_minutes: 60, category: "문화",
+          description: "거대한 붉은 등이 달린 가미나리몬을 지나 나카미세 상점가가 본당까지 곧게 이어집니다.",
+          tip: "상점가는 10시쯤 열지만 이른 아침엔 사람 없는 본당을 찍을 수 있습니다.", move_from_prev: "" },
+        { name: "도쿄 스카이트리", lat: 35.7101, lng: 139.8107, day: 1, time: "10:00", stay_minutes: 90, category: "명소",
+          description: "강 건너로 634m 탑이 솟아 있고, 전망대에서는 맑은 날 후지산까지 보입니다.",
+          tip: "당일권보다 온라인 날짜 지정권이 저렴하고 대기도 짧습니다.", move_from_prev: "도보 20분 (스미다강 건너)" },
+        { name: "츠키지 장외시장", lat: 35.6655, lng: 139.7707, day: 1, time: "12:00", stay_minutes: 60, category: "음식",
+          description: "좁은 골목에 해산물 덮밥, 계란말이, 구이 노점이 빽빽하게 붙어 있습니다.",
+          tip: "대부분 14시 전에 문을 닫으니 점심에 맞춰 가세요.", move_from_prev: "지하철 약 25분" },
+        { name: "도쿄타워", lat: 35.6586, lng: 139.7454, day: 1, time: "14:00", stay_minutes: 60, category: "명소",
+          description: "시바공원 나무 사이로 붉은 철탑이 올려다보이고, 옆에 조조지 절이 함께 보입니다.",
+          tip: "조조지 경내에서 탑과 절을 한 프레임에 담을 수 있습니다.", move_from_prev: "지하철 약 15분" },
+        { name: "메이지 신궁", lat: 35.6764, lng: 139.6993, day: 1, time: "16:00", stay_minutes: 60, category: "자연",
+          description: "하라주쿠 역에서 몇 걸음만 들어가면 거대한 도리이와 숲길이 도시 소음을 막아줍니다.",
+          tip: "일몰 무렵 문을 닫으니 16시 전후 도착이 안전합니다.", move_from_prev: "지하철 약 25분" },
+        { name: "시부야 스크램블 교차로", lat: 35.6595, lng: 139.7005, day: 1, time: "18:30", stay_minutes: 90, category: "야경",
+          description: "신호가 바뀌면 사방에서 수천 명이 동시에 건너고, 빌딩 전광판이 교차로를 환하게 비춥니다.",
+          tip: "시부야 스카이 전망대는 일몰 시간대 예약이 가장 빨리 찹니다.", move_from_prev: "도보 20분 (오모테산도 경유)" },
+      ],
+    },
+  },
+];
+
+export function pickPreset(prompt) {
+  const p = prompt.toLowerCase();
+  return (PRESETS.find((x) => x.keywords.some((k) => p.includes(k))) ?? PRESETS[0]).trip;
+}

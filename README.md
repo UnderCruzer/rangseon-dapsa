@@ -8,6 +8,7 @@
 npm install
 cp .env.example .env   # 키는 선택
 npm run dev            # http://localhost:5173
+npm run android:apk    # Android 디버그 APK (JDK 21 필요, AGENTS.md 참고)
 ```
 
 | 구성 | 내용 |

@@ -57,6 +57,9 @@ web/
     scenes.js          장소 → 장면 연결
     presets.js         데모 일정
     style.css
+  src/native.js        Capacitor 연동 (뒤로가기, 외부 링크). 웹에서는 아무것도 안 함
+capacitor.config.json  앱 ID·SystemBars 설정
+android/               Capacitor Android 프로젝트 (커밋함, 빌드 산출물 제외)
 dist/                  빌드 결과 (커밋하지 않음)
 ```
 
@@ -80,6 +83,22 @@ npm start              # API + dist/ 서빙 (운영과 같은 구성)
 | `GOOGLE_MAPS_API_KEY` | 서버 → `/api/config`로 전달 | 있으면 실사 3D 토글 |
 | `API_PORT` / `PORT` | 서버 | API 포트. `API_PORT` 우선 (기본 8787) |
 | `VITE_API_BASE` | 웹 빌드 | 앱처럼 API가 다른 출처에 있을 때 서버 주소 |
+
+### Android 앱
+
+Capacitor 8은 **JDK 21**이 필요하다. 시스템 기본 Java가 다르면 Android Studio 내장 JBR을 쓴다.
+
+```bash
+export JAVA_HOME="<Android Studio.app>/Contents/jbr/Contents/Home"
+npm run android:apk   # 웹 빌드 → cap sync → 디버그 APK (android/app/build/outputs/apk/debug/)
+npm run android:run   # 연결된 기기·에뮬레이터에 설치하고 실행
+```
+
+- `android/local.properties`(SDK 경로)는 커밋하지 않는다. 없으면 `sdk.dir=$HOME/Library/Android/sdk`로 만든다.
+- 앱에서 일정 생성을 쓰려면 `VITE_API_BASE`를 배포 서버로 두고 빌드한다(#7). 비어 있으면 데모 모드.
+- WebView 디버깅: 디버그 빌드는 `chrome://inspect`로 붙을 수 있다.
+- 웹 코드에서 기기 기능은 `native.js`를 거친다. 웹에서도 같은 코드가 돌아야 하므로 `isNative`로 분기한다.
+- 스타일은 safe-area 변수(`--sat` `--sab` `--sal` `--sar`)로 상태바·내비게이션 바를 피한다.
 
 ## 하지 말 것
 

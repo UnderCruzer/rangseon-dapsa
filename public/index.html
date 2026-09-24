@@ -61,11 +61,38 @@
       <button id="prev" aria-label="이전 장소">‹</button>
       <button id="play" aria-label="자동 투어">❚❚</button>
       <button id="next" aria-label="다음 장소">›</button>
-      <a id="roadview" target="_blank" rel="noopener">거리뷰로 보기 ↗</a>
+      <button id="enter" class="enter">들어가기</button>
+      <a id="roadview" target="_blank" rel="noopener">거리뷰 ↗</a>
     </div>
     <div class="progress"><i id="progress-bar"></i></div>
   </article>
 
+  <section id="explore" hidden>
+    <div class="explore-stage"></div>
+    <header class="explore-top">
+      <div>
+        <h3 id="explore-name"></h3>
+        <p id="explore-source"></p>
+      </div>
+      <button id="explore-close" aria-label="지도로 돌아가기">지도로 ✕</button>
+    </header>
+    <div id="explore-loading"><span id="explore-loading-text"></span></div>
+    <p class="explore-hint">
+      <span class="desktop-only"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 이동 · <kbd>E</kbd><kbd>Q</kbd> 위·아래 · 드래그로 둘러보기 · <kbd>Shift</kbd> 빠르게 · <kbd>Esc</kbd> 나가기</span>
+      <span class="touch-only">드래그로 둘러보기 · 길게 눌러 앞으로 이동</span>
+    </p>
+  </section>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+        "@sparkjsdev/spark": "https://cdn.jsdelivr.net/npm/@sparkjsdev/spark@2.2.0/dist/spark.module.js"
+      }
+    }
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.js"></script>
   <script type="module" src="app.js"></script>
 </body>

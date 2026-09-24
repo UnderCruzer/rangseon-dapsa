@@ -1,5 +1,6 @@
 import { MapLibreRenderer, phaseOf } from "./renderer-maplibre.js";
 import { pickPreset } from "./presets.js";
+import { sceneFor } from "./scenes.js";
 
 const DWELL_MS = 9000; // 한 장소에 머무는 시간(자동 투어)
 const DAY_COLORS = ["#ffb547", "#5ec8ff", "#b98cff", "#7be3a0"];
@@ -240,6 +241,27 @@ async function onSubmit(e) {
   }
 }
 
+// ---------- 1인칭 탐색 ----------
+let explore = null;
+
+async function enterStop() {
+  const stop = state.trip?.stops[state.index];
+  if (!stop) return;
+  pause();
+  state.renderer.stopOrbit();
+  try {
+    if (!explore) {
+      // three.js·Spark는 처음 들어갈 때만 불러온다
+      const { ExploreView } = await import("./explore.js");
+      explore = new ExploreView($("explore"));
+      $("explore-close").addEventListener("click", () => explore.close());
+    }
+    await explore.open(stop, sceneFor(stop));
+  } catch (err) {
+    setStatus(`1인칭 보기 실패: ${err.message}`, "error");
+  }
+}
+
 // ---------- 렌더러 전환 ----------
 async function switchMode(mode) {
   if (state.renderer === state.renderers[mode]) return;
@@ -303,6 +325,7 @@ async function main() {
   $("prompt").addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); $("prompt-form").requestSubmit(); }
   });
+  $("enter").addEventListener("click", enterStop);
   $("prev").addEventListener("click", () => goTo(state.index - 1));
   $("next").addEventListener("click", () => goTo(state.index + 1));
   $("play").addEventListener("click", () => {
@@ -312,7 +335,7 @@ async function main() {
     goTo(state.index + 1 < state.trip.stops.length ? state.index : 0);
   });
   document.addEventListener("keydown", (e) => {
-    if (!state.trip || e.target === $("prompt")) return;
+    if (!state.trip || e.target === $("prompt") || document.body.classList.contains("exploring")) return;
     if (e.key === "ArrowRight") goTo(state.index + 1);
     if (e.key === "ArrowLeft") goTo(state.index - 1);
     if (e.key === " ") { e.preventDefault(); $("play").click(); }

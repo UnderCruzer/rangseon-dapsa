@@ -217,6 +217,7 @@ async function startTrip(trip) {
   pause();
   state.trip = trip;
   state.index = -1;
+  document.body.classList.add("has-trip");
   renderList(trip);
   state.renderer.setStops(trip.stops, colorOf, (i) => { state.playing = true; updatePlayButton(); goTo(i); });
   state.renderer.overview(trip.stops);

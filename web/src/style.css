@@ -165,6 +165,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
     transition: height .28s cubic-bezier(.2,.8,.2,1);
   }
   #panel.dragging { transition: none; user-select: none; }
+  /* 일정이 생기면 좁은 시트에서 예시 칩보다 일정 목록을 보여준다 */
+  body.has-trip #examples { display: none; }
   .sheet-handle { display: block; }
   .sheet-handle, #panel .brand { touch-action: none; cursor: grab; }
   #panel[data-sheet="collapsed"] > :not(.sheet-handle):not(.brand) { visibility: hidden; }

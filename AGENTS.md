@@ -15,6 +15,7 @@ Trip3D에서 작업하는 사람과 AI 에이전트가 따르는 단일 기준 �
    - `Co-Authored-By` 줄은 넣지 않는다.
 4. **PR**: 본문에 `Closes #번호`, 변경 사항, 확인한 것 / 못 한 것을 체크리스트로. 선행 PR이 있으면 그 브랜치를 base로 쌓는다(stacked PR).
 5. 머지는 merge commit(작업 단위 커밋 보존). 머지 후 브랜치 삭제.
+6. **스택 PR 머지 순서**: 아래 PR을 머지하기 **전에** 바로 위 PR의 base를 main으로 바꾼다(`gh pr edit <위 PR> --base main`). 그대로 아래 PR을 `--delete-branch`로 머지하면 GitHub이 위 PR을 닫아 버리거나, 위 PR이 main이 아닌 브랜치로 머지된다.
 
 ### 라벨
 
@@ -53,7 +54,8 @@ web/
     app.js             진입점: 투어 진행·일정 목록·동선 경고
     config.js          API 주소 (VITE_API_BASE)
     renderer-*.js      지도 렌더러 (maplibre: 기본, cesium: Google 실사)
-    explore.js         1인칭 스플랫 뷰어 (동적 import)
+    explore.js         1인칭 스플랫 뷰어 (동적 import) + 터치 조이스틱
+    sheet.js           좁은 화면 바텀시트 (접힘/중간/펼침)
     scenes.js          장소 → 장면 연결
     presets.js         데모 일정
     style.css
@@ -99,6 +101,8 @@ npm run android:run   # 연결된 기기·에뮬레이터에 설치하고 실행
 - WebView 디버깅: 디버그 빌드는 `chrome://inspect`로 붙을 수 있다.
 - 웹 코드에서 기기 기능은 `native.js`를 거친다. 웹에서도 같은 코드가 돌아야 하므로 `isNative`로 분기한다.
 - 스타일은 safe-area 변수(`--sat` `--sab` `--sal` `--sar`)로 상태바·내비게이션 바를 피한다.
+- 에뮬레이터(API 37)에서는 `adb shell input swipe`의 이동 이벤트가 WebView에 전달되지 않고 `pointercancel`이 난다. 드래그(시트·조이스틱)는 에뮬레이터 창에서 마우스로 끌거나 실기기로 확인한다. 페이지 로직은 CDP `Input.dispatchTouchEvent`로 검증할 수 있다.
+- 에뮬레이터는 GPU가 느려 1인칭 장면 첫 화면까지 20~30초 걸린다. 성능 판단은 실기기로.
 
 ## 하지 말 것
 

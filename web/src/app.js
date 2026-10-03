@@ -2,9 +2,10 @@ import "pretendard/dist/web/variable/pretendardvariable.css";
 import "./style.css";
 import { MapLibreRenderer, phaseOf } from "./renderer-maplibre.js";
 import { apiUrl } from "./config.js";
-import { setupNative } from "./native.js";
+import { setupNative, keepAwake } from "./native.js";
 import { pickPreset } from "./presets.js";
 import { sceneFor } from "./scenes.js";
+import { Sheet } from "./sheet.js";
 
 const DWELL_MS = 9000; // 한 장소에 머무는 시간(자동 투어)
 const DAY_COLORS = ["#ffb547", "#5ec8ff", "#b98cff", "#7be3a0"];
@@ -117,6 +118,12 @@ function renderList(trip) {
 // ---------- 투어 ----------
 function updatePlayButton() {
   $("play").textContent = state.playing ? "❚❚" : "▶";
+  updateAwake();
+}
+
+// 자동 투어 중이거나 1인칭 탐색 중일 때만 화면을 켜 둔다
+function updateAwake() {
+  keepAwake(state.playing || document.body.classList.contains("exploring"));
 }
 
 function runProgress(ms) {
@@ -145,7 +152,17 @@ function showCard(stop, i) {
   $("card-move").textContent = stop.move_from_prev ? `이동: ${stop.move_from_prev}` : "";
   $("roadview").href = roadviewUrl(stop);
   document.querySelectorAll(".stop").forEach((el) => el.classList.toggle("active", Number(el.dataset.index) === i));
-  document.querySelector(".stop.active")?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  scrollListTo(document.querySelector(".stop.active"));
+}
+
+// 현재 장소가 목록에 보이게. scrollIntoView는 overflow:hidden인 패널(바텀시트)까지 밀어 올리므로 목록만 직접 스크롤
+function scrollListTo(el) {
+  const list = $("stops");
+  if (!el) return;
+  const top = el.offsetTop - list.offsetTop;
+  if (top < list.scrollTop || top + el.offsetHeight > list.scrollTop + list.clientHeight) {
+    list.scrollTo({ top: top - list.clientHeight / 2 + el.offsetHeight / 2, behavior: "smooth" });
+  }
 }
 
 async function goTo(i) {
@@ -163,6 +180,7 @@ async function goTo(i) {
   state.renderer.highlight(i);
   runProgress(0);
   document.body.classList.add("touring");
+  sheet?.set("collapsed"); // 폰에서는 지도가 보이게 시트를 접는다
 
   await state.renderer.flyTo(stop, heading);
   if (token !== state.token) return;
@@ -199,6 +217,7 @@ async function startTrip(trip) {
   pause();
   state.trip = trip;
   state.index = -1;
+  document.body.classList.add("has-trip");
   renderList(trip);
   state.renderer.setStops(trip.stops, colorOf, (i) => { state.playing = true; updatePlayButton(); goTo(i); });
   state.renderer.overview(trip.stops);
@@ -248,6 +267,7 @@ async function onSubmit(e) {
 
 // ---------- 1인칭 탐색 ----------
 let explore = null;
+let sheet = null;
 
 async function enterStop() {
   const stop = state.trip?.stops[state.index];
@@ -259,9 +279,12 @@ async function enterStop() {
       // three.js·Spark는 처음 들어갈 때만 불러온다
       const { ExploreView } = await import("./explore.js");
       explore = new ExploreView($("explore"));
+      explore.onClose = updateAwake;
       $("explore-close").addEventListener("click", () => explore.close());
     }
-    await explore.open(stop, sceneFor(stop));
+    const opening = explore.open(stop, sceneFor(stop));
+    updateAwake();
+    await opening;
   } catch (err) {
     setStatus(`1인칭 보기 실패: ${err.message}`, "error");
   }
@@ -331,6 +354,7 @@ async function main() {
   $("prompt").addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); $("prompt-form").requestSubmit(); }
   });
+  sheet = new Sheet($("panel"), [document.querySelector(".sheet-handle"), document.querySelector("#panel .brand")]);
   $("enter").addEventListener("click", enterStop);
   setupNative({
     // 뒤로가기: 1인칭 → 지도. 지도에서는 앱 종료

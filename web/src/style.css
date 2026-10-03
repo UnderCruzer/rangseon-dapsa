@@ -45,6 +45,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0,0,0,.4);
   overflow: hidden; z-index: 5;
 }
+.sheet-handle { display: none; flex: none; width: 40px; height: 5px; margin: 4px auto 2px; border-radius: 3px; background: rgba(255,255,255,.28); }
+.sheet-handle::before { content: ""; display: block; height: 28px; margin-top: -12px; } /* 터치 영역 넓히기 */
 .brand { display: flex; align-items: center; gap: 12px; }
 .logo {
   width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px;
@@ -156,11 +158,18 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---------- 모바일 ---------- */
 @media (max-width: 760px) {
+  /* 바텀시트: 높이는 sheet.js가 상태(접힘/중간/펼침)에 맞춰 넣는다 */
   #panel {
-    top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 46vh; border-radius: 18px 18px 0 0;
-    padding: 14px calc(16px + var(--sar)) calc(14px + var(--sab)) calc(16px + var(--sal));
+    top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 48vh; border-radius: 18px 18px 0 0;
+    padding: 6px calc(16px + var(--sar)) calc(14px + var(--sab)) calc(16px + var(--sal));
+    transition: height .28s cubic-bezier(.2,.8,.2,1);
   }
-  body.touring #panel { max-height: calc(108px + var(--sab)); }
+  #panel.dragging { transition: none; user-select: none; }
+  /* 일정이 생기면 좁은 시트에서 예시 칩보다 일정 목록을 보여준다 */
+  body.has-trip #examples { display: none; }
+  .sheet-handle { display: block; }
+  .sheet-handle, #panel .brand { touch-action: none; cursor: grab; }
+  #panel[data-sheet="collapsed"] > :not(.sheet-handle):not(.brand) { visibility: hidden; }
   #hud { top: calc(12px + var(--sat)); right: calc(12px + var(--sar)); }
   #card { left: calc(12px + var(--sal)); right: calc(12px + var(--sar)); bottom: auto; top: calc(60px + var(--sat)); padding: 14px 16px 12px; }
   #card h3 { font-size: 18px; }
@@ -210,3 +219,17 @@ kbd {
   .touch-only { display: inline; }
   .desktop-only { display: none; }
 }
+
+/* 1인칭 조이스틱 (터치 기기) */
+#joystick {
+  position: absolute; left: calc(28px + var(--sal)); bottom: calc(72px + var(--sab));
+  width: 128px; height: 128px; border-radius: 50%; touch-action: none;
+  background: rgba(16, 19, 27, .45); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(6px);
+}
+#joystick i {
+  position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%;
+  background: rgba(255,255,255,.85); box-shadow: 0 4px 14px rgba(0,0,0,.35);
+  transform: translate(var(--jx, 0px), var(--jy, 0px)); transition: transform .12s;
+}
+#joystick.active i { transition: none; }
+@media (hover: none) { #joystick.touch-only { display: block; } }

@@ -28,6 +28,8 @@ export class MapLibreRenderer {
       zoom: 6,
       pitch: 45,
       maxPitch: 85,
+      // 폰은 devicePixelRatio가 3 안팎이라 그대로 그리면 픽셀이 2배 이상 늘어난다. 2로 제한
+      pixelRatio: Math.min(window.devicePixelRatio, 2),
       attributionControl: { compact: true },
       style: {
         version: 8,

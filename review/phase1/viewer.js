@@ -73,6 +73,11 @@ async function tiles(id) {
     cullWithChildrenBounds: true,
     customShader: new C.CustomShader({lightingModel:C.LightingModel.UNLIT}),
   });
+  if (id === '13103_bldg_lod3') {
+    // LOD1 buildings in the source are untextured extrusions. Neutral gray instead of pure
+    // white is a display choice; geometry is unchanged and textured LOD2+ keeps its photos.
+    set.style = new C.Cesium3DTileStyle({color: {conditions: [["${_lod} === 1", "color('#b4b8b3')"], ['true', "color('white')"]]}});
+  }
   if (id === '13103_tran_lod3') {
     // The sampled official road GLB has no images or base-color texture.
     // Neutral display color is a rendering choice, not a measured surface color.

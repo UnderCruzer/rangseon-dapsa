@@ -59,7 +59,7 @@ function distanceKm(a, b) {
 
 async function geocode(query) {
   const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`;
-  const res = await fetch(url, { headers: { "User-Agent": "trip3d-prototype/0.1", "Accept-Language": "ko" } });
+  const res = await fetch(url, { headers: { "User-Agent": "rangseon-dapsa/0.1 (github.com/UnderCruzer/rangseon-dapsa)", "Accept-Language": "ko" } });
   if (!res.ok) return null;
   const [hit] = await res.json();
   return hit ? { lat: Number(hit.lat), lng: Number(hit.lon) } : null;
@@ -165,5 +165,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`trip3d api → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"})`);
+  console.log(`랑선답사 api → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"})`);
 });

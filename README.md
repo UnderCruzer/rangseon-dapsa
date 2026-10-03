@@ -50,7 +50,8 @@
 | 현장 확인 | ✅ | 국내는 카카오 로드뷰, 해외는 Google 스트리트뷰로 연결 |
 | 장소 안 1인칭 | 🚧 | 뷰어·조이스틱 완료, 장면은 아직 **샘플** |
 | Android 앱 | ✅ | Capacitor, 바텀시트·뒤로가기·화면 꺼짐 방지 |
-| 국내 정밀 3D | 📋 | 브이월드 3D 건물·지형 렌더러 |
+| 국내 항공사진·지명 | ✅ | 브이월드 WMTS 항공사진(z6~19)과 한글 지명·도로를 국내 영역에 겹침 (`VWORLD_KEY`) |
+| 국내 정밀 3D | 📋 | 브이월드 3D 건물 모델 (조사 필요) |
 | 국내 장소 데이터 | 🚧 | 검증·사진·주소는 완료. TourAPI 후보 안에서만 일정 생성, 운영시간은 계획 |
 | 실제 이동 경로 | ✅ | 1.2km 이내 도보 추정, ODsay 대중교통(환승 요약), 카카오모빌리티 자동차(실제 도로 경로). 키가 없으면 직선 추정 |
 | 실제 사진 기반 장면 | 📋 | 장소 사진 → 3D 월드 생성 ([#2](https://github.com/UnderCruzer/rangseon-dapsa/issues/2)) |
@@ -71,7 +72,7 @@ npm run android:apk    # Android 디버그 APK (JDK 21 필요, AGENTS.md 참고)
 | 구성 | 내용 |
 |---|---|
 | 일정 생성 | `server.js` → Claude(구조화 출력) → TourAPI(`TOURAPI_KEY`) → Nominatim 순으로 좌표 교정 |
-| 기본 3D | MapLibre + Esri 위성사진 + AWS 지형 + OpenFreeMap 3D 건물 (키 불필요) |
+| 기본 3D | MapLibre + Esri 위성사진 + AWS 지형 + OpenFreeMap 3D 건물 (키 불필요). 국내는 브이월드 항공사진·지명(`VWORLD_KEY`) |
 | 실사 3D | CesiumJS + Google Photorealistic 3D Tiles (`GOOGLE_MAPS_API_KEY`, 해외 비교용) |
 | 1인칭 탐색 | Spark(three.js)로 3D Gaussian Splatting 장면 렌더링. 장소별 장면(`stop.scene`)이 없으면 샘플 장면 |
 | 데모 모드 | 키가 없으면 `web/src/presets.js`의 샘플 일정 |

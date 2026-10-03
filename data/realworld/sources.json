@@ -1,0 +1,42 @@
+{
+  "plateau-catalog": {
+    "url": "https://api.plateauview.mlit.go.jp/datacatalog/plateau-datasets",
+    "fetched_at": "2026-10-03T11:32:31.193243+00:00",
+    "sha256": "f81de93adfb2c62bb04f1df36213a625a7055e68b2fc991a9fc2aedf39cb7ebc",
+    "bytes": 9121829,
+    "snapshot": "data/realworld/plateau-catalog.json.gz",
+    "license": "Dataset-specific terms not yet verified; metadata probe only"
+  },
+  "13103_bldg_lod1": {
+    "url": "https://assets.cms.plateau.reearth.io/assets/71/15d8f0-c4e1-4866-8df4-e66cac71c248/13103_minato-ku_pref_2025_citygml_1_op_bldg_3dtiles_13103_minato-ku_lod1/tileset.json",
+    "fetched_at": "2026-10-03T11:32:31.735447+00:00",
+    "sha256": "39f80b2af4c0ca43194d37a8082443bdf42b00481c579b7f1ac92bb7341f8f42",
+    "bytes": 122653,
+    "snapshot": "data/realworld/13103_bldg_lod1.json.gz",
+    "license": "Dataset-specific terms not yet verified; metadata probe only"
+  },
+  "13103_bldg_lod2": {
+    "url": "https://assets.cms.plateau.reearth.io/assets/b5/b5f79e-0c6c-4fc7-adde-6522014243a2/13103_minato-ku_pref_2025_citygml_1_op_bldg_3dtiles_13103_minato-ku_lod2/tileset.json",
+    "fetched_at": "2026-10-03T11:32:31.888466+00:00",
+    "sha256": "709670cf945cbab223d6f1440046ec08dcabfe26aa8820af0ff2417a6cd0fea3",
+    "bytes": 412899,
+    "snapshot": "data/realworld/13103_bldg_lod2.json.gz",
+    "license": "Dataset-specific terms not yet verified; metadata probe only"
+  },
+  "13103_bldg_lod3": {
+    "url": "https://assets.cms.plateau.reearth.io/assets/c7/ffcc73-1d33-434b-a49a-aa0289160814/13103_minato-ku_pref_2025_citygml_1_op_bldg_3dtiles_13103_minato-ku_lod3/tileset.json",
+    "fetched_at": "2026-10-03T11:32:32.088743+00:00",
+    "sha256": "edec4c24d137eaf08a8525cecea505a3f21a30823b9ef4fb530e10774cea1323",
+    "bytes": 412889,
+    "snapshot": "data/realworld/13103_bldg_lod3.json.gz",
+    "license": "Dataset-specific terms not yet verified; metadata probe only"
+  },
+  "13103_tran_lod3": {
+    "url": "https://assets.cms.plateau.reearth.io/assets/87/884fad-ac86-4b58-8672-9f3d7bdbd44c/13103_minato-ku_pref_2025_citygml_1_op_tran_3dtiles_lod3/tileset.json",
+    "fetched_at": "2026-10-03T11:32:32.578290+00:00",
+    "sha256": "db2fdcaeeb578ab1de9fe0d9b6cf44211a38da3e40e35255975946c7045b731f",
+    "bytes": 1121839,
+    "snapshot": "data/realworld/13103_tran_lod3.json.gz",
+    "license": "Dataset-specific terms not yet verified; metadata probe only"
+  }
+}

@@ -11,7 +11,8 @@
     "start": "node --env-file-if-exists=.env server.js",
     "android:sync": "vite build && cap sync android",
     "android:run": "npm run android:sync && cap run android",
-    "android:apk": "npm run android:sync && cd android && ./gradlew assembleDebug"
+    "android:apk": "npm run android:sync && cd android && ./gradlew assembleDebug",
+    "test": "node --test test/*.test.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",

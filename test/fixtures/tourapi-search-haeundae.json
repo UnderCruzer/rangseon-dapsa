@@ -1,0 +1,37 @@
+{
+  "_comment": "TourAPI KorService2 searchKeyword2 응답 형태를 문서 기준으로 손으로 만든 고정 응답. 실제 값과 다를 수 있음",
+  "response": {
+    "header": { "resultCode": "0000", "resultMsg": "OK" },
+    "body": {
+      "items": {
+        "item": [
+          {
+            "addr1": "부산광역시 해운대구 해운대해변로 264", "addr2": "(우동)",
+            "contentid": "126081", "contenttypeid": "12",
+            "firstimage": "http://tong.visitkorea.or.kr/cms/resource/91/2594091_image2_1.jpg", "firstimage2": "",
+            "mapx": "129.1586412", "mapy": "35.1588157", "title": "해운대해수욕장"
+          },
+          {
+            "addr1": "부산광역시 해운대구 달맞이길62번길 13", "addr2": "",
+            "contentid": "2734100", "contenttypeid": "12",
+            "firstimage": "", "firstimage2": "http://tong.visitkorea.or.kr/cms/resource/00/2734100_image3_1.jpg",
+            "mapx": "129.1631", "mapy": "35.1609", "title": "해운대 블루라인파크"
+          },
+          {
+            "addr1": "서울특별시 강남구 테헤란로 1", "addr2": "",
+            "contentid": "9999", "contenttypeid": "39",
+            "firstimage": "", "firstimage2": "",
+            "mapx": "127.0276", "mapy": "37.4979", "title": "해운대 국밥 강남점"
+          },
+          {
+            "addr1": "부산광역시 해운대구 우동", "addr2": "",
+            "contentid": "8888", "contenttypeid": "39",
+            "firstimage": "", "firstimage2": "",
+            "mapx": "0", "mapy": "0", "title": "해운대 좌표없는집"
+          }
+        ]
+      },
+      "numOfRows": 20, "pageNo": 1, "totalCount": 4
+    }
+  }
+}

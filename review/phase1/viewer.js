@@ -199,6 +199,10 @@ async function init() {
   viewer.camera.moveEnd.addEventListener(updateStatus);
   viewer.scene.postRender.addEventListener(updateStatus);
   bootComplete=true;updateStatus();
+  if (new URLSearchParams(location.search).has('export')) {
+    const {install}=await import('./export.js');
+    install({viewer,C,tilesets:[buildings,roads]});
+  }
 }
 
 init().catch(error=>{console.error(error);status(`불러오기 실패: ${error.message}`,true);});

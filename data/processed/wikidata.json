@@ -1,0 +1,66 @@
+[
+  {
+    "wikidata": "Q183536",
+    "source_url": "https://www.wikidata.org/wiki/Q183536",
+    "license": "CC0-1.0 (structured statements only)",
+    "official_sites": [
+      "https://www.tokyotower.co.jp",
+      "https://es.tokyotower.co.jp/",
+      "https://in.tokyotower.co.jp/",
+      "https://th.tokyotower.co.jp/",
+      "https://www.tokyotower.co.jp/kr/",
+      "https://www.tokyotower.co.jp/cn/",
+      "https://www.tokyotower.co.jp/zh/",
+      "https://www.tokyotower.co.jp/en/",
+      "https://en.tokyotower.co.jp/",
+      "https://zh.tokyotower.co.jp/",
+      "https://cn.tokyotower.co.jp/",
+      "https://ko.tokyotower.co.jp/",
+      "https://id.tokyotower.co.jp/",
+      "https://de.tokyotower.co.jp/",
+      "https://fr.tokyotower.co.jp/"
+    ],
+    "images": [
+      {
+        "filename": "Tokyo Tower 2023.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Tokyo_Tower_2023.jpg",
+        "license": "CC BY-SA 4.0",
+        "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Akonnchiroll&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Akonnchiroll (page does not exist)\">Akonnchiroll</a>",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Tokyo_Tower_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "status": "metadata_verified",
+        "credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+      }
+    ]
+  },
+  {
+    "wikidata": "Q249139",
+    "source_url": "https://www.wikidata.org/wiki/Q249139",
+    "license": "CC0-1.0 (structured statements only)",
+    "official_sites": [
+      "https://www.zojoji.or.jp/",
+      "https://www.zojoji.or.jp/en/"
+    ],
+    "images": [
+      {
+        "filename": "Zojoji frontal steps.jpg",
+        "source_url": "https://commons.wikimedia.org/wiki/File:Zojoji_frontal_steps.jpg",
+        "license": "CC BY-SA 3.0",
+        "artist": "<a href=\"//commons.wikimedia.org/wiki/User:SElefant\" title=\"User:SElefant\">SElefant</a>",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Zojoji_frontal_steps.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "status": "metadata_verified",
+        "credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+        "usage_terms": "Creative Commons Attribution-Share Alike 3.0"
+      }
+    ]
+  },
+  {
+    "wikidata": "Q3266956",
+    "source_url": "https://www.wikidata.org/wiki/Q3266956",
+    "license": "CC0-1.0 (structured statements only)",
+    "official_sites": [],
+    "images": []
+  }
+]

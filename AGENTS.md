@@ -92,6 +92,7 @@ npm start              # API + dist/ 서빙 (운영과 같은 구성)
 | `ODSAY_KEY` | 서버 | ODsay 대중교통 경로. 없으면 직선 추정 |
 | `KAKAO_REST_KEY` | 서버 | 카카오모빌리티 자동차 경로(실제 도로 좌표). 없으면 직선 추정 |
 | `TOURAPI_KEY` | 서버 | 한국관광공사 KorService2. 있으면 장소 검증 1순위(좌표·사진·주소), 없으면 Nominatim |
+| `VWORLD_KEY` | 서버 → `/api/config`로 전달 | 브이월드 WMTS. 국내 영역에 항공사진·한글 지명. 등록 도메인에 묶인 클라이언트 키(개발: localhost, 앱: https://localhost) |
 | `GOOGLE_MAPS_API_KEY` | 서버 → `/api/config`로 전달 | 있으면 실사 3D 토글 |
 | `API_PORT` / `PORT` | 서버 | API 포트. `API_PORT` 우선 (기본 8787) |
 | `VITE_API_BASE` | 웹 빌드 | 앱처럼 API가 다른 출처에 있을 때 서버 주소 |
@@ -112,6 +113,7 @@ npm run android:run   # 연결된 기기·에뮬레이터에 설치하고 실행
 - 웹 코드에서 기기 기능은 `native.js`를 거친다. 웹에서도 같은 코드가 돌아야 하므로 `isNative`로 분기한다.
 - 스타일은 safe-area 변수(`--sat` `--sab` `--sal` `--sar`)로 상태바·내비게이션 바를 피한다.
 - 에뮬레이터(API 37)에서는 `adb shell input swipe`의 이동 이벤트가 WebView에 전달되지 않고 `pointercancel`이 난다. 드래그(시트·조이스틱)는 에뮬레이터 창에서 마우스로 끌거나 실기기로 확인한다. 페이지 로직은 CDP `Input.dispatchTouchEvent`로 검증할 수 있다.
+- 앱 WebView에서 개발 서버 화면을 띄우려면 `capacitor.config.json`에 임시로 `"server": {"url": "http://localhost:<포트>", "cleartext": true}`를 넣고 `adb reverse tcp:<포트> tcp:<포트>` 후 `cap sync`. **커밋하지 말고** 끝나면 되돌린 뒤 다시 sync
 - 에뮬레이터는 GPU가 느려 1인칭 장면 첫 화면까지 20~30초 걸린다. 성능 판단은 실기기로.
 
 ## 하지 말 것

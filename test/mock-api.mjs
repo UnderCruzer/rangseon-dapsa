@@ -12,7 +12,7 @@ const photo = `<svg xmlns="http://www.w3.org/2000/svg" width="192" height="144">
 http
   .createServer(async (req, res) => {
     const send = (status, type, body) => { res.writeHead(status, { "Content-Type": type }); res.end(body); };
-    if (req.url === "/api/config") return send(200, "application/json", JSON.stringify({ llm: true, googleMapsKey: null }));
+    if (req.url === "/api/config") return send(200, "application/json", JSON.stringify({ llm: true, googleMapsKey: null, vworldKey: process.env.VWORLD_KEY ?? null }));
     if (req.url === "/api/plan" && req.method === "POST") return setTimeout(() => send(200, "application/json", trip()), 800);
     if (req.url.startsWith("/api/route")) {
       const q = new URL(req.url, "http://x").searchParams;

@@ -152,6 +152,8 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, {
       llm: HAS_LLM,
       googleMapsKey: process.env.GOOGLE_MAPS_API_KEY ?? null,
+      // 브이월드 WMTS 키는 브라우저가 타일 주소에 직접 쓰는 클라이언트 키(등록 도메인 제한)라 내려준다
+      vworldKey: process.env.VWORLD_KEY ?? null,
     });
   }
 

@@ -10,7 +10,7 @@ export const PATHS = {
   },
   'tower-approach': {
     center: {lng: 139.74544, lat: 35.6585639, height: 120},
-    heading: [-35, -35], pitch: [-30, -14], range: [1500, 650], depth: [300, 4000],
+    heading: [-35, -35], pitch: [-30, -14], range: [1500, 650], depth: [150, 4000],
   },
 };
 
@@ -39,6 +39,18 @@ export function install({viewer, C, tilesets}) {
     return [name, stage];
   }));
   document.body.classList.add('exporting');
+  // Interactive loading shortcuts defer or skip tile requests without counting them in
+  // tilesLoaded, so a frame could be captured half-loaded. Exports load the full selection.
+  for (const set of tilesets) {
+    set.cullRequestsWhileMoving = false;
+    set.foveatedScreenSpaceError = false;
+    set.dynamicScreenSpaceError = false;
+    set.progressiveResolutionHeightFraction = 0;
+    set.skipLevelOfDetail = false;
+    // The interactive memory budget lowers detail on wide views; offline export can afford more.
+    set.cacheBytes = 1024 * 1024 * 1024;
+    set.maximumCacheOverflowBytes = 1024 * 1024 * 1024;
+  }
   viewer.resolutionScale = 1;
   viewer.scene.fog.enabled = false; // fog would alter the RGB the depth is paired with
 
@@ -47,15 +59,17 @@ export function install({viewer, C, tilesets}) {
     viewer.scene.requestRender();
   });
 
-  async function settle(timeoutMs) {
+  // tilesLoaded can read true for a moment right after a camera jump, before new tiles are
+  // requested. Require it to hold over consecutive renders.
+  async function settle(timeoutMs, stableRenders = 8) {
     const start = performance.now();
+    let stable = 0;
     while (performance.now() - start < timeoutMs) {
       await rendered();
-      if (viewer.scene.globe.tilesLoaded && tilesets.every((set) => set.tilesLoaded)) {
-        await rendered();
-        return true;
-      }
-      await new Promise((r) => setTimeout(r, 50));
+      const loaded = viewer.scene.globe.tilesLoaded && tilesets.every((set) => set.tilesLoaded);
+      stable = loaded ? stable + 1 : 0;
+      if (stable >= stableRenders) return true;
+      await new Promise((r) => setTimeout(r, 60));
     }
     return false;
   }

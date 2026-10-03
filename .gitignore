@@ -1,3 +1,7 @@
 node_modules
 .env
 dist
+
+# Official page bodies are local evidence only; facts and hashes are tracked.
+data/snapshots/*.html
+__pycache__/

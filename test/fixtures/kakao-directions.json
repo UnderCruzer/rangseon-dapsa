@@ -1,0 +1,20 @@
+{
+  "_comment": "카카오모빌리티 /v1/directions 응답 형태를 문서 기준으로 손으로 만든 고정 응답. 값은 가짜",
+  "trans_id": "mock",
+  "routes": [
+    {
+      "result_code": 0,
+      "result_msg": "길찾기 성공",
+      "summary": { "distance": 9840, "duration": 1260, "fare": { "taxi": 12000, "toll": 0 } },
+      "sections": [
+        {
+          "distance": 9840, "duration": 1260,
+          "roads": [
+            { "name": "해운대해변로", "distance": 5000, "duration": 600, "vertexes": [129.1604, 35.1587, 129.15, 35.157, 129.14, 35.155] },
+            { "name": "광안해변로", "distance": 4840, "duration": 660, "vertexes": [129.14, 35.155, 129.1186, 35.1532] }
+          ]
+        }
+      ]
+    }
+  ]
+}

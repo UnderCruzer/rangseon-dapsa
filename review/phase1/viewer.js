@@ -133,7 +133,7 @@ async function capture() {
     const canvas=viewer.scene.canvas;
     const payload={schema_version:1,kind:'rendered_reference_not_observed_photo',model_executed:false,
       created_at:new Date().toISOString(),viewport:{width:canvas.width,height:canvas.height},
-      camera:{reference:'WGS84 ECEF; meters',position:C.Cartesian3.toArray(viewer.camera.positionWC),direction:C.Cartesian3.toArray(viewer.camera.directionWC),up:C.Cartesian3.toArray(viewer.camera.upWC),projection_matrix:C.Matrix4.toArray(viewer.camera.frustum.projectionMatrix)},
+      camera:{reference:'WGS84 ECEF; meters',position:C.Cartesian3.pack(viewer.camera.positionWC,[]),direction:C.Cartesian3.pack(viewer.camera.directionWC,[]),up:C.Cartesian3.pack(viewer.camera.upWC,[]),projection_matrix:C.Matrix4.toArray(viewer.camera.frustum.projectionMatrix)},
       datasets:availability.datasets.filter(r=>['13103_bldg_lod3','13103_tran_lod3'].includes(r.id)),
       manifests:sources,terrain_url:terrainURL,imagery_url:imageryURL,
       layers:{buildings:buildings.show,roads:roads.show,route:false},

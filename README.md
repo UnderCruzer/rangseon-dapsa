@@ -44,14 +44,14 @@
 | 기능 | 상태 | 내용 |
 |---|---|---|
 | 한 줄 → 일정 | ✅ | Claude 구조화 출력, 키가 없으면 데모 일정(부산·서울) |
-| 좌표 검증 | ✅ | OpenStreetMap Nominatim으로 교정, 실패 시 표시 |
+| 좌표 검증 | ✅ | 한국관광공사 TourAPI 우선(공식 좌표·대표 사진·주소), 없으면 OpenStreetMap, 실패 시 "좌표 미확인" |
 | 3D 동선 투어 | ✅ | 위성사진 + 지형 + 3D 건물, 자동 플라이스루, 시간대 조명 |
 | 동선 경고 | ✅ | 직선거리·시간 간격으로 빠듯한 구간과 일정 겹침 표시 |
 | 현장 확인 | ✅ | 국내는 카카오 로드뷰, 해외는 Google 스트리트뷰로 연결 |
 | 장소 안 1인칭 | 🚧 | 뷰어·조이스틱 완료, 장면은 아직 **샘플** |
 | Android 앱 | ✅ | Capacitor, 바텀시트·뒤로가기·화면 꺼짐 방지 |
 | 국내 정밀 3D | 📋 | 브이월드 3D 건물·지형 렌더러 |
-| 국내 장소 데이터 | 📋 | TourAPI로 후보 조회 → 그 안에서만 일정 생성, 사진·운영시간 |
+| 국내 장소 데이터 | 🚧 | 검증·사진·주소는 완료. TourAPI 후보 안에서만 일정 생성, 운영시간은 계획 |
 | 실제 이동 경로 | 📋 | 카카오모빌리티 / ODsay로 도보·대중교통 경로와 소요 시간 |
 | 실제 사진 기반 장면 | 📋 | 장소 사진 → 3D 월드 생성 ([#2](https://github.com/UnderCruzer/rangseon-dapsa/issues/2)) |
 | 앱용 API 서버 | 📋 | 원격 배포 ([#7](https://github.com/UnderCruzer/rangseon-dapsa/issues/7)) |
@@ -64,12 +64,13 @@
 npm install
 cp .env.example .env   # 키는 선택
 npm run dev            # http://localhost:5173
+npm run dev:mock       # 키 없이 화면만 확인 (목업 일정)
 npm run android:apk    # Android 디버그 APK (JDK 21 필요, AGENTS.md 참고)
 ```
 
 | 구성 | 내용 |
 |---|---|
-| 일정 생성 | `server.js` → Claude(구조화 출력) → Nominatim으로 좌표 교정 |
+| 일정 생성 | `server.js` → Claude(구조화 출력) → TourAPI(`TOURAPI_KEY`) → Nominatim 순으로 좌표 교정 |
 | 기본 3D | MapLibre + Esri 위성사진 + AWS 지형 + OpenFreeMap 3D 건물 (키 불필요) |
 | 실사 3D | CesiumJS + Google Photorealistic 3D Tiles (`GOOGLE_MAPS_API_KEY`, 해외 비교용) |
 | 1인칭 탐색 | Spark(three.js)로 3D Gaussian Splatting 장면 렌더링. 장소별 장면(`stop.scene`)이 없으면 샘플 장면 |

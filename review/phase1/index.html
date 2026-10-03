@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>도쿄 현장 보기 · 랑선답사</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.145.0/Build/Cesium/Widgets/widgets.css">
+</head>
+<body>
+  <div id="map" aria-label="실제 도쿄 건물과 도로의 3D 지도"></div>
+  <header><a class="brand" href="/review/phase1/">랑선답사<span>FIELD NOTES / TOKYO</span></a><span class="badge">실제 공간 · 3D 검토</span></header>
+  <main class="panel">
+    <p class="eyebrow">01 / MINATO, TOKYO</p>
+    <h1>도쿄타워 <br>주변을 둘러보세요.</h1>
+    <p class="intro">실제 건물과 도로, 그리고 여행할 길.<br>도쿄의 공간 데이터로 확인하는 첫 장면입니다.</p>
+    <div class="views" aria-label="카메라 시점">
+      <button data-view="overview" aria-pressed="true">주변 조감</button>
+      <button data-view="tower" aria-pressed="false">타워 가까이</button>
+      <button data-view="road" aria-pressed="false">도로 가까이</button>
+    </div>
+    <fieldset><legend>지도에 표시</legend>
+      <label><input id="buildings" type="checkbox" checked>실제 건물</label>
+      <label><input id="roads" type="checkbox" checked>실제 도로</label>
+      <label><input id="route" type="checkbox">Day 1 도보 동선</label>
+    </fieldset>
+    <p id="status" role="status">실제 3D 데이터를 불러오는 중…</p>
+    <button id="capture" class="capture" disabled>비교 장면 저장 <span>↗</span></button>
+    <details><summary>출처와 현재 확인 범위</summary>
+      <p>건물·도로: PLATEAU 미나토구 2025년 정비 데이터. 사진과 측량의 실제 촬영일은 별도 확인이 필요합니다.</p>
+      <p>지도상의 건물을 선택하면 원본 객체 정보가 표시됩니다. 일부 구역은 상세 데이터가 없을 수 있습니다. 사진 텍스처가 없는 도로 면은 원본 형상에 중성 회색을 적용했습니다.</p>
+      <p>도보 선은 OSM 연결망 기준이며 출입구 연결과 현장 통행은 미확인입니다. 약 3.30km·44분은 신호·대기를 제외한 추정입니다.</p>
+      <p><strong>월드모델은 아직 실행하지 않았습니다.</strong> GPU 없이 실제 3D와 비교용 입력을 검토하는 단계입니다. 저장 파일은 렌더 이미지·윤곽 이미지·카메라·출처를 포함합니다.</p>
+      <a href="https://www.geospatial.jp/ckan/dataset/plateau-13103-minato-ku-2025" target="_blank" rel="noreferrer">공식 건물·도로 데이터 ↗</a>
+      <a href="/review/phase0/">원본 데이터 검토 →</a>
+    </details>
+  </main>
+  <aside id="selection" class="selection" hidden aria-live="polite"><button id="close-selection" aria-label="선택 정보 닫기">×</button><p class="eyebrow">SOURCE OBJECT</p><h2 id="selected-name"></h2><dl id="selected-fields"></dl><p>원본 속성 · 측량 시점과 현재 현장은 다를 수 있습니다.</p></aside>
+  <div class="hint">드래그로 이동 · 스크롤로 확대 · Ctrl + 드래그로 회전</div>
+  <footer>PLATEAU / 미나토구 · PLATEAU | Mapterhorn | 国土地理院 · © OpenStreetMap contributors<br><span>실제 데이터의 3D 렌더 · 관측 사진 및 월드모델 출력과 구분</span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/cesium@1.145.0/Build/Cesium/Cesium.js"></script>
+  <script type="module" src="./viewer.js"></script>
+</body>
+</html>

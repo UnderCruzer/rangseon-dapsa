@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "dev.undercruzer.trip3d"
+    namespace = "dev.undercruzer.rangseondapsa"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "dev.undercruzer.trip3d"
+        applicationId "dev.undercruzer.rangseondapsa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

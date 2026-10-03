@@ -1,4 +1,4 @@
-package dev.undercruzer.trip3d;
+package dev.undercruzer.rangseondapsa;
 
 import com.getcapacitor.BridgeActivity;
 

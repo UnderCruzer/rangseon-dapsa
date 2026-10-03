@@ -6,6 +6,7 @@ import { setupNative, keepAwake } from "./native.js";
 import { pickPreset } from "./presets.js";
 import { sceneFor } from "./scenes.js";
 import { Sheet } from "./sheet.js";
+import { loadLegs, legText, legWarning } from "./legs.js";
 
 const DWELL_MS = 9000; // 한 장소에 머무는 시간(자동 투어)
 const DAY_COLORS = ["#ffb547", "#5ec8ff", "#b98cff", "#7be3a0"];
@@ -35,23 +36,6 @@ function bearing(a, b) {
   const y = Math.sin((b.lng - a.lng) * r) * Math.cos(b.lat * r);
   const x = Math.cos(a.lat * r) * Math.sin(b.lat * r) - Math.sin(a.lat * r) * Math.cos(b.lat * r) * Math.cos((b.lng - a.lng) * r);
   return (Math.atan2(y, x) / r + 360) % 360;
-}
-
-function distanceKm(a, b) {
-  const r = Math.PI / 180;
-  const h = Math.sin(((b.lat - a.lat) * r) / 2) ** 2 +
-    Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(((b.lng - a.lng) * r) / 2) ** 2;
-  return 12742 * Math.asin(Math.sqrt(h));
-}
-
-// 이전 장소를 떠나는 시각 ~ 다음 도착 시각 사이에 직선거리를 소화할 수 있는지 대략 점검
-function legWarning(prev, stop) {
-  if (!prev || prev.day !== stop.day) return "";
-  const gap = toMin(stop.time) - (toMin(prev.time) + prev.stay_minutes);
-  const km = distanceKm(prev, stop);
-  if (gap < 0) return `이전 일정과 ${-gap}분 겹침`;
-  if (km > 0.8 && km / Math.max(gap, 1) * 60 > 25) return `직선 ${km.toFixed(1)}km를 ${gap}분에 이동, 빠듯함`;
-  return "";
 }
 
 // 좌표 출처 표시. 데모 일정(verified 없음)은 손으로 확인한 좌표라 표시하지 않는다
@@ -172,7 +156,7 @@ function showCard(stop, i) {
   }
   $("card-desc").textContent = stop.description;
   $("card-tip").textContent = stop.tip;
-  $("card-move").textContent = stop.move_from_prev ? `이동: ${stop.move_from_prev}` : "";
+  $("card-move").textContent = legText(stop);
   $("roadview").href = roadviewUrl(stop);
   document.querySelectorAll(".stop").forEach((el) => el.classList.toggle("active", Number(el.dataset.index) === i));
   scrollListTo(document.querySelector(".stop.active"));
@@ -244,6 +228,7 @@ async function startTrip(trip) {
   renderList(trip);
   state.renderer.setStops(trip.stops, colorOf, (i) => { state.playing = true; updatePlayButton(); goTo(i); });
   state.renderer.overview(trip.stops);
+  refreshLegs(trip);
   setClock(trip.stops[0].time);
   const token = state.token;
   await new Promise((r) => setTimeout(r, 3200));
@@ -251,6 +236,16 @@ async function startTrip(trip) {
   state.playing = true;
   updatePlayButton();
   goTo(0);
+}
+
+// 구간 이동 정보를 받아 오면 목록 경고·지도 선·현재 카드를 다시 그린다 (투어는 그대로 진행)
+async function refreshLegs(trip) {
+  await loadLegs(trip.stops);
+  if (state.trip !== trip) return;
+  renderList(trip);
+  document.querySelector(`.stop[data-index="${state.index}"]`)?.classList.add("active");
+  state.renderer.updateRoutes(trip.stops, colorOf);
+  if (state.index >= 0) $("card-move").textContent = legText(trip.stops[state.index]);
 }
 
 // ---------- 일정 생성 ----------

@@ -1,6 +1,7 @@
 // 키 없이 도는 기본 3D 렌더러: Esri 위성사진 + AWS 지형 + OpenFreeMap(OSM) 3D 건물
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { legCoordinates } from "./legs.js";
 
 const SKY = {
   day:    { sky: "#6fa8e0", horizon: "#d9ecff", fog: "#cfe3f5", brightness: 1.0,  building: "#f1ede6", opacity: 0.82 },
@@ -112,13 +113,18 @@ export class MapLibreRenderer {
         .addTo(this.map);
     });
 
+    this.updateRoutes(stops, colorOf);
+  }
+
+  // 구간 선. 실제 도로 경로(stop.leg.path)가 있으면 그걸, 없으면 직선
+  updateRoutes(stops, colorOf) {
     const legs = [];
     for (let i = 1; i < stops.length; i++) {
       if (stops[i].day !== stops[i - 1].day) continue;
       legs.push({
         type: "Feature",
         properties: { color: colorOf(stops[i]) },
-        geometry: { type: "LineString", coordinates: [[stops[i - 1].lng, stops[i - 1].lat], [stops[i].lng, stops[i].lat]] },
+        geometry: { type: "LineString", coordinates: legCoordinates(stops[i - 1], stops[i]) },
       });
     }
     this.map.getSource("route").setData({ type: "FeatureCollection", features: legs });

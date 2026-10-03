@@ -1,0 +1,183 @@
+{
+  "tower-hours": {
+    "url": "https://en.tokyotower.co.jp/fee/",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:19.709714+00:00",
+    "sha256": "657be37174023a48ea3868dc774891188f94bedc34d564f0f4a503dcf1d8c194",
+    "bytes": 45451,
+    "content_type": "text/html; charset=UTF-8",
+    "snapshot": "data/snapshots/tower-hours.html"
+  },
+  "tower-lightup": {
+    "url": "https://en.tokyotower.co.jp/lightup/",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:19.998072+00:00",
+    "sha256": "1ac4adadafd2a2a8bc1ecb0883d42fa06552b54ae4558c23b5b820236be9650c",
+    "bytes": 61238,
+    "content_type": "text/html; charset=UTF-8",
+    "snapshot": "data/snapshots/tower-lightup.html"
+  },
+  "tower-lightup-ja": {
+    "url": "https://www.tokyotower.co.jp/lightup/index.html",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:20.344774+00:00",
+    "sha256": "cd8cc08afb0f7438a664bbce86dbf6925c1bd8429ebc59e6709de1246df80481",
+    "bytes": 63148,
+    "content_type": "text/html; charset=UTF-8",
+    "snapshot": "data/snapshots/tower-lightup-ja.html"
+  },
+  "tower-access": {
+    "url": "https://en.tokyotower.co.jp/access/",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:20.599010+00:00",
+    "sha256": "27736f50ddd2d0eecd8894408a138f6433dbb9324c4a1dc74799246c69c35c62",
+    "bytes": 29183,
+    "content_type": "text/html; charset=UTF-8",
+    "snapshot": "data/snapshots/tower-access.html"
+  },
+  "zojoji-faq": {
+    "url": "https://www.zojoji.or.jp/faq/",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:20.905080+00:00",
+    "sha256": "0fe2c54276a455ac03be69d95bd00ad3bd769e34087df70a87ccbe9670560ea6",
+    "bytes": 14910,
+    "content_type": "text/html",
+    "snapshot": "data/snapshots/zojoji-faq.html"
+  },
+  "zojoji-en": {
+    "url": "https://www.zojoji.or.jp/en/",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:21.157053+00:00",
+    "sha256": "cf6b5736781f586446338f3483e80c0e5b0b0cde7d66c8b42fe63e21e1107a71",
+    "bytes": 32001,
+    "content_type": "text/html",
+    "snapshot": "data/snapshots/zojoji-en.html"
+  },
+  "toei-akabanebashi": {
+    "url": "https://www.kotsu.metro.tokyo.jp/subway/stations/akabanebashi.html",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:21.221435+00:00",
+    "sha256": "d02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d",
+    "bytes": 212,
+    "content_type": "text/html",
+    "snapshot": "data/snapshots/toei-akabanebashi.html"
+  },
+  "solar-method": {
+    "url": "https://www.gml.noaa.gov/grad/solcalc/calcdetails.html",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:05:24.183763+00:00",
+    "sha256": "3da7e18c6d2a9e4b0070214cdda1ab3d6fa02c3e700f0b4964982e355ce891ef",
+    "bytes": 24314,
+    "content_type": "text/html; charset=UTF-8",
+    "snapshot": "data/snapshots/solar-method.html"
+  },
+  "osm-anchor": {
+    "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "query": "[out:json][timeout:60];nwr[\"name\"=\"東京タワー\"](35.64,139.73,35.68,139.76);out center meta;",
+    "license": "ODbL-1.0",
+    "fetched_at": "2026-10-03T10:08:42.481097+00:00",
+    "sha256": "abaae5cde0881e34be16dd0930af19c8c3593505d4c177a01dcf161f94f9b02b",
+    "bytes": 3990,
+    "content_type": "application/json",
+    "snapshot": "data/snapshots/osm-anchor.json"
+  },
+  "osm-area": {
+    "url": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "query": "[out:json][timeout:120];(nwr(around:1500,35.6585639,139.74544);way[\"highway\"](around:2200,35.6585639,139.74544););out meta geom;",
+    "license": "ODbL-1.0",
+    "fetched_at": "2026-10-03T10:11:52.214007+00:00",
+    "sha256": "497aa38c1e49001f7a4c4865773f8d4d64f7582cc2535e706e8405d48829a9d5",
+    "bytes": 71479924,
+    "content_type": "application/json",
+    "snapshot": "data/snapshots/osm-area.json.gz",
+    "compression": "gzip; sha256 covers original response bytes"
+  },
+  "wikidata-Q183536": {
+    "url": "https://www.wikidata.org/wiki/Special:EntityData/Q183536.json",
+    "query": null,
+    "license": "CC0-1.0 (structured data only; linked images have independent licenses)",
+    "fetched_at": "2026-10-03T10:13:24.268215+00:00",
+    "sha256": "970cd5f6b45b67c48b29b6ee44cef2323201d5365eb7fb769d0b450db6821753",
+    "bytes": 98398,
+    "content_type": "application/json; charset=UTF-8",
+    "snapshot": "data/snapshots/wikidata-Q183536.json"
+  },
+  "wikidata-Q249139": {
+    "url": "https://www.wikidata.org/wiki/Special:EntityData/Q249139.json",
+    "query": null,
+    "license": "CC0-1.0 (structured data only; linked images have independent licenses)",
+    "fetched_at": "2026-10-03T10:13:25.354326+00:00",
+    "sha256": "f516c5eaa5618d4498ad6133efc2832a779a4282e3c002eec042a01d475f84fa",
+    "bytes": 35645,
+    "content_type": "application/json; charset=UTF-8",
+    "snapshot": "data/snapshots/wikidata-Q249139.json"
+  },
+  "wikidata-Q3266956": {
+    "url": "https://www.wikidata.org/wiki/Special:EntityData/Q3266956.json",
+    "query": null,
+    "license": "CC0-1.0 (structured data only; linked images have independent licenses)",
+    "fetched_at": "2026-10-03T10:13:26.289977+00:00",
+    "sha256": "b8ea8b17d9641bda04c0d33191bd1fc3788a1bc22faef7d394518faf40fdde95",
+    "bytes": 4423,
+    "content_type": "application/json; charset=UTF-8",
+    "snapshot": "data/snapshots/wikidata-Q3266956.json"
+  },
+  "park-hours": {
+    "url": "https://www.tokyo-park.or.jp/park/siba/index.html",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:14:16.106588+00:00",
+    "sha256": "affcebbcd5b5bedad9d4685afbee9ec20607ee3fab9b7bf8cab2e299ba03f499",
+    "bytes": 63088,
+    "content_type": "text/html;charset=UTF-8",
+    "snapshot": "data/snapshots/park-hours.html"
+  },
+  "market-hours": {
+    "url": "https://www.azabudai-hills.com/information/index.html",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:14:16.385541+00:00",
+    "sha256": "fea1903b44fe3b0efc7e2a2c190e1542d9dc3280c88951096d122c90de12c281",
+    "bytes": 302618,
+    "content_type": "text/html; charset=UTF-8",
+    "snapshot": "data/snapshots/market-hours.html"
+  },
+  "cafe-hours": {
+    "url": "https://www.princehotels.co.jp/tokyo/restaurant/lepainquotidien/",
+    "query": null,
+    "license": "All rights reserved; factual extraction only; do not redistribute full page",
+    "fetched_at": "2026-10-03T10:14:18.031094+00:00",
+    "sha256": "1b3bfe6226ecc38b1df31fcbe895d5f7da9b822dbc622dac56e407db0d489a31",
+    "bytes": 61390,
+    "content_type": "text/html;charset=UTF-8",
+    "snapshot": "data/snapshots/cafe-hours.html"
+  },
+  "commons-Q183536-0": {
+    "url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url%7Cextmetadata&titles=File%3ATokyo+Tower+2023.jpg",
+    "query": null,
+    "license": "File metadata; see each image license",
+    "fetched_at": "2026-10-03T10:15:10.508958+00:00",
+    "sha256": "1a069cbcbced8bc1c4e6a4d2b40b9c91d8262e47aa89ecd8273aceaa92910df6",
+    "bytes": 2080,
+    "content_type": "application/json; charset=utf-8",
+    "snapshot": "data/snapshots/commons-Q183536-0.json"
+  },
+  "commons-Q249139-0": {
+    "url": "https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url%7Cextmetadata&titles=File%3AZojoji+frontal+steps.jpg",
+    "query": null,
+    "license": "File metadata; see each image license",
+    "fetched_at": "2026-10-03T10:15:11.600270+00:00",
+    "sha256": "f12abadf328d8fb70c516bda98acf70cdb6fe79fad2fc444ea2359c3e51f9696",
+    "bytes": 2156,
+    "content_type": "application/json; charset=utf-8",
+    "snapshot": "data/snapshots/commons-Q249139-0.json"
+  }
+}

@@ -9,6 +9,9 @@ const SKY = {
   night:  { sky: "#050814", horizon: "#1c2745", fog: "#141b30", brightness: 0.32, building: "#ffcf80", opacity: 0.55 },
 };
 
+// 브이월드 타일을 요청할 국내 영역 [서, 남, 동, 북]
+const KOREA_BOUNDS = [124.5, 33.0, 131.9, 38.7];
+
 export function phaseOf(hour) {
   if (hour >= 17 && hour < 19.5) return "golden";
   if (hour >= 19.5 || hour < 5.5) return "night";
@@ -16,8 +19,10 @@ export function phaseOf(hour) {
 }
 
 export class MapLibreRenderer {
-  constructor(container) {
+  // options.vworldKey: 있으면 국내 영역에 브이월드 항공사진·한글 지명을 겹친다
+  constructor(container, options = {}) {
     this.container = container;
+    this.vworldKey = options.vworldKey ?? null;
     this.markers = [];
     this.orbitFrame = null;
   }
@@ -84,6 +89,7 @@ export class MapLibreRenderer {
     });
 
     await new Promise((resolve) => this.map.once("load", resolve));
+    if (this.vworldKey) this.addVworld();
     this.map.setTerrain({ source: "terrain", exaggeration: 1.15 });
     this.setPhase("day");
 
@@ -191,6 +197,26 @@ export class MapLibreRenderer {
     this.orbitFrame = null;
   }
 
+  // 국토교통부 브이월드 WMTS. Satellite(jpeg, z6~19)는 Esri 위에, Hybrid(png, 한글 지명·도로)는 그 위에.
+  // 국내 영역(bounds) 밖은 타일을 요청하지 않아 해외는 Esri 그대로다. 키는 등록 도메인에 묶인 클라이언트 키
+  addVworld() {
+    const tiles = (layer, ext) => [`https://api.vworld.kr/req/wmts/1.0.0/${this.vworldKey}/${layer}/{z}/{y}/{x}.${ext}`];
+    const common = { type: "raster", tileSize: 256, minzoom: 6, maxzoom: 19, bounds: KOREA_BOUNDS };
+    this.map.addSource("vworld-satellite", { ...common, tiles: tiles("Satellite", "jpeg"), attribution: "항공사진 © 국토교통부 브이월드" });
+    this.map.addSource("vworld-hybrid", { ...common, tiles: tiles("Hybrid", "png") });
+    this.map.addLayer({ id: "vworld-satellite", type: "raster", source: "vworld-satellite", paint: { "raster-brightness-max": 1 } }, "buildings");
+    this.map.addLayer({ id: "vworld-hybrid", type: "raster", source: "vworld-hybrid", minzoom: 10, paint: { "raster-opacity": 0.9 } }, "buildings");
+
+    // 키가 틀리거나 도메인이 등록되지 않으면 브이월드는 HTTP 200 + XML 오류 본문을 준다.
+    // 타일만 조용히 빠지고 Esri가 비쳐 보이므로, 원인을 알 수 있게 한 번만 경고한다
+    let warned = false;
+    this.map.on("error", (e) => {
+      if (warned || !e.sourceId?.startsWith("vworld")) return;
+      warned = true;
+      console.warn("[브이월드] 타일을 불러오지 못했어요. VWORLD_KEY와 등록한 서비스 URL(도메인)을 확인하세요.", e.error?.message ?? "");
+    });
+  }
+
   setPhase(phase) {
     const s = SKY[phase];
     this.map.setSky({
@@ -203,6 +229,11 @@ export class MapLibreRenderer {
       "atmosphere-blend": ["interpolate", ["linear"], ["zoom"], 0, 1, 10, 1, 12, 0],
     });
     this.map.setPaintProperty("satellite", "raster-brightness-max", s.brightness);
+    if (this.vworldKey) {
+      this.map.setPaintProperty("vworld-satellite", "raster-brightness-max", s.brightness);
+      // 밤에도 지명은 읽히게 사진보다 덜 어둡게
+      this.map.setPaintProperty("vworld-hybrid", "raster-brightness-max", Math.max(s.brightness, 0.7));
+    }
     this.map.setPaintProperty("buildings", "fill-extrusion-color", s.building);
     this.map.setPaintProperty("buildings", "fill-extrusion-opacity", s.opacity);
   }

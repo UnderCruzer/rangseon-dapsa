@@ -18,7 +18,7 @@ const EXAMPLES = [
 
 const $ = (id) => document.getElementById(id);
 const state = {
-  config: { llm: false, googleMapsKey: null },
+  config: { llm: false, googleMapsKey: null, vworldKey: null },
   trip: null,
   index: -1,
   playing: true,
@@ -347,7 +347,7 @@ async function main() {
   } catch { /* 정적 서버로 열었을 때: 데모 모드 */ }
 
   // 지도 타일을 기다리는 동안에도 입력은 받을 수 있게, 로딩은 기다리지 않고 시작만 해 둔다
-  const r = new MapLibreRenderer($("map"));
+  const r = new MapLibreRenderer($("map"), { vworldKey: state.config.vworldKey });
   r.onUserInteract = pause;
   state.renderers.satellite = state.renderer = r;
   state.mapReady = r.init();

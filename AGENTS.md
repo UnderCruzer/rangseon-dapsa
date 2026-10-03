@@ -11,13 +11,13 @@
 ## 워크플로
 
 1. **이슈 먼저.** 기능·수정·설정 변경은 이슈부터 만든다. 템플릿(`.github/ISSUE_TEMPLATE/`)을 쓰고 라벨을 2~4개 붙인다.
-2. **브랜치**: `type/이슈번호-짧은-설명` (예: `feat/6-capacitor-android`). `main`에 직접 push하지 않는다.
+2. **브랜치**: `type/이슈번호-짧은-설명` (예: `feat/6-capacitor-android`). 작업 브랜치는 `develop`에서 만들고 PR도 `develop`으로 보낸다. `main`·`develop`에 직접 push하지 않는다. `main` 반영은 `develop` → `main` PR로만 한다.
 3. **커밋은 작업 단위로 바로바로.** 파일·기능 하나가 끝나면 커밋한다. 뭉쳐서 찍고 되돌려 다시 나누지 않는다.
    - 형식: `type: 한국어 설명 (#이슈)` — type은 `feat` `fix` `chore` `docs` `refactor` `test`
    - `Co-Authored-By` 줄은 넣지 않는다.
 4. **PR**: 본문에 `Closes #번호`, 변경 사항, 확인한 것 / 못 한 것을 체크리스트로. 선행 PR이 있으면 그 브랜치를 base로 쌓는다(stacked PR).
 5. 머지는 merge commit(작업 단위 커밋 보존). 머지 후 브랜치 삭제.
-6. **스택 PR 머지 순서**: 아래 PR을 머지하기 **전에** 바로 위 PR의 base를 main으로 바꾼다(`gh pr edit <위 PR> --base main`). 그대로 아래 PR을 `--delete-branch`로 머지하면 GitHub이 위 PR을 닫아 버리거나, 위 PR이 main이 아닌 브랜치로 머지된다.
+6. **스택 PR 머지 순서**: 아래 PR을 머지하기 **전에** 바로 위 PR의 base를 develop으로 바꾼다(`gh pr edit <위 PR> --base develop`). 그대로 아래 PR을 `--delete-branch`로 머지하면 GitHub이 위 PR을 닫아 버리거나, 위 PR이 develop이 아닌 브랜치로 머지된다.
 
 ### 라벨
 

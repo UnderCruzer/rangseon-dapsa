@@ -1,3 +1,5 @@
+import { legCoordinates } from "./legs.js";
+
 // Google Photorealistic 3D Tiles 렌더러. GOOGLE_MAPS_API_KEY가 있을 때만 켜진다.
 // (Map Tiles API를 켠 키 필요. 국내는 커버리지가 제한적일 수 있음)
 const CESIUM = "https://cdn.jsdelivr.net/npm/cesium@1.145.0/Build/Cesium";
@@ -72,6 +74,8 @@ export class CesiumRenderer {
     const C = this.C;
     this.onPick = onPick;
     this.entities.forEach((e) => this.viewer.entities.remove(e));
+    this.routeEntities?.forEach((e) => this.viewer.entities.remove(e));
+    this.routeEntities = [];
     this.entities = stops.map((s, i) => {
       const color = C.Color.fromCssColorString(colorOf(s));
       const e = this.viewer.entities.add({
@@ -90,11 +94,19 @@ export class CesiumRenderer {
       e.stopIndex = i;
       return e;
     });
+    this.updateRoutes(stops, colorOf);
+  }
+
+  updateRoutes(stops, colorOf) {
+    const C = this.C;
+    this.routeEntities.forEach((e) => this.viewer.entities.remove(e));
+    this.routeEntities = [];
     for (let i = 1; i < stops.length; i++) {
       if (stops[i].day !== stops[i - 1].day) continue;
-      this.entities.push(this.viewer.entities.add({
+      const coords = legCoordinates(stops[i - 1], stops[i]).flatMap(([lng, lat]) => [lng, lat, 90]);
+      this.routeEntities.push(this.viewer.entities.add({
         polyline: {
-          positions: C.Cartesian3.fromDegreesArrayHeights([stops[i - 1].lng, stops[i - 1].lat, 90, stops[i].lng, stops[i].lat, 90]),
+          positions: C.Cartesian3.fromDegreesArrayHeights(coords),
           width: 3,
           material: new C.PolylineDashMaterialProperty({ color: C.Color.fromCssColorString(colorOf(stops[i])) }),
         },

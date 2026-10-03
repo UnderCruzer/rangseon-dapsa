@@ -1,0 +1,28 @@
+{
+  "_comment": "ODsay searchPubTransPathT 응답 형태를 문서 기준으로 손으로 만든 고정 응답. 노선·시간은 가짜",
+  "result": {
+    "searchType": 0,
+    "path": [
+      {
+        "pathType": 3,
+        "info": { "totalTime": 41, "payment": 1550, "busTransitCount": 1, "subwayTransitCount": 1, "totalDistance": 12850 },
+        "subPath": [
+          { "trafficType": 3, "distance": 320, "sectionTime": 5 },
+          { "trafficType": 2, "distance": 3100, "sectionTime": 12, "lane": [{ "busNo": "1003", "type": 11 }], "startName": "가", "endName": "나" },
+          { "trafficType": 3, "distance": 150, "sectionTime": 2 },
+          { "trafficType": 1, "distance": 9000, "sectionTime": 20, "lane": [{ "name": "부산 2호선", "subwayCode": 202 }], "startName": "나", "endName": "다" },
+          { "trafficType": 3, "distance": 280, "sectionTime": 4 }
+        ]
+      },
+      {
+        "pathType": 2,
+        "info": { "totalTime": 35, "payment": 1550, "busTransitCount": 1, "subwayTransitCount": 0, "totalDistance": 11900 },
+        "subPath": [
+          { "trafficType": 3, "distance": 200, "sectionTime": 3 },
+          { "trafficType": 2, "distance": 11500, "sectionTime": 30, "lane": [{ "busNo": "139", "type": 11 }], "startName": "가", "endName": "라" },
+          { "trafficType": 3, "distance": 200, "sectionTime": 2 }
+        ]
+      }
+    ]
+  }
+}

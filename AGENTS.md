@@ -49,7 +49,7 @@
 
 ```
 server.js              API 서버 (/api/config, /api/plan) + 운영 시 dist/ 서빙
-lib/                   외부 API 모듈 (tourapi.js, geo.js). 순수 함수 + fetch 주입으로 테스트 가능하게
+lib/                   외부 API 모듈 (tourapi.js, route.js, geo.js). 순수 함수 + fetch 주입으로 테스트 가능하게
 test/                  node --test 테스트, fixtures/(손으로 만든 고정 응답), mock-api.mjs
 vite.config.js         Vite 설정 (root: web, 개발 중 /api → 8787 프록시)
 web/
@@ -60,6 +60,7 @@ web/
     renderer-*.js      지도 렌더러 (maplibre: 기본, cesium: Google 실사)
     explore.js         1인칭 스플랫 뷰어 (동적 import) + 터치 조이스틱
     sheet.js           좁은 화면 바텀시트 (접힘/중간/펼침)
+    legs.js            구간 이동(/api/route) → stop.leg, 경고·표시 문구
     scenes.js          장소 → 장면 연결
     presets.js         데모 일정
     style.css
@@ -71,7 +72,7 @@ dist/                  빌드 결과 (커밋하지 않음)
 
 라이브러리는 npm으로 번들한다(maplibre-gl, three, @sparkjsdev/spark, pretendard). 예외: Cesium은 실사 모드 전용이고 정적 자산이 많아 CDN에서 동적 로드한다.
 
-렌더러는 같은 인터페이스(`init` `show` `hide` `setStops` `highlight` `overview` `flyTo` `startOrbit` `stopOrbit` `setPhase`)를 구현한다. 새 렌더러를 추가하면 이 목록을 맞춘다.
+렌더러는 같은 인터페이스(`init` `show` `hide` `setStops` `updateRoutes` `highlight` `overview` `flyTo` `startOrbit` `stopOrbit` `setPhase`)를 구현한다. 새 렌더러를 추가하면 이 목록을 맞춘다.
 
 ## 실행
 
@@ -88,6 +89,8 @@ npm start              # API + dist/ 서빙 (운영과 같은 구성)
 | 환경변수 | 어디서 | 설명 |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | 서버 | 있으면 실제 일정 생성, 없으면 데모 |
+| `ODSAY_KEY` | 서버 | ODsay 대중교통 경로. 없으면 직선 추정 |
+| `KAKAO_REST_KEY` | 서버 | 카카오모빌리티 자동차 경로(실제 도로 좌표). 없으면 직선 추정 |
 | `TOURAPI_KEY` | 서버 | 한국관광공사 KorService2. 있으면 장소 검증 1순위(좌표·사진·주소), 없으면 Nominatim |
 | `GOOGLE_MAPS_API_KEY` | 서버 → `/api/config`로 전달 | 있으면 실사 3D 토글 |
 | `API_PORT` / `PORT` | 서버 | API 포트. `API_PORT` 우선 (기본 8787) |

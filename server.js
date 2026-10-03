@@ -7,6 +7,7 @@ import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import * as z from "zod/v4";
 import { distanceKm } from "./lib/geo.js";
 import * as tourapi from "./lib/tourapi.js";
+import { route } from "./lib/route.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 // 개발 중에는 Vite(5173)가 화면을, 이 서버(8787)가 /api를 맡는다. 운영에서는 빌드된 dist/도 같이 서빙.
@@ -15,6 +16,7 @@ const STATIC_DIR = path.join(here, "dist");
 const PORT = Number(process.env.API_PORT ?? process.env.PORT ?? 8787);
 const HAS_LLM = Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
 const TOURAPI_KEY = process.env.TOURAPI_KEY || null;
+const ROUTE_KEYS = { odsayKey: process.env.ODSAY_KEY || null, kakaoKey: process.env.KAKAO_REST_KEY || null };
 
 const client = HAS_LLM ? new Anthropic() : null;
 
@@ -111,6 +113,15 @@ async function planTrip(prompt) {
   return trip;
 }
 
+// ---------- 구간 이동 ----------
+// 같은 일정을 다시 열 때 외부 API를 또 부르지 않게 메모리에 둔다 (프로세스 재시작 시 비움)
+const routeCache = new Map();
+
+function parseLngLat(s) {
+  const [lng, lat] = (s ?? "").split(",").map(Number);
+  return Number.isFinite(lng) && Number.isFinite(lat) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180 ? { lng, lat } : null;
+}
+
 // ---------- HTTP ----------
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -144,6 +155,25 @@ const server = http.createServer(async (req, res) => {
     });
   }
 
+  if (url.pathname === "/api/route") {
+    const from = parseLngLat(url.searchParams.get("from"));
+    const to = parseLngLat(url.searchParams.get("to"));
+    if (!from || !to) return sendJson(res, 400, { error: "from, to는 '경도,위도' 형식" });
+    const cacheKey = `${from.lng},${from.lat}>${to.lng},${to.lat}`;
+    if (!routeCache.has(cacheKey)) {
+      routeCache.set(cacheKey, route(from, to, ROUTE_KEYS));
+    }
+    try {
+      const result = await routeCache.get(cacheKey);
+      if (result.errors) console.warn("[route]", result.errors.join(" / "));
+      const { errors, ...body } = result;
+      return sendJson(res, 200, body);
+    } catch (err) {
+      routeCache.delete(cacheKey);
+      return sendJson(res, 500, { error: err.message });
+    }
+  }
+
   if (url.pathname === "/api/plan" && req.method === "POST") {
     if (!client) return sendJson(res, 503, { error: "ANTHROPIC_API_KEY가 설정되지 않았습니다." });
     try {
@@ -174,6 +204,6 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(
-    `랑선답사 api → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"}, TourAPI: ${TOURAPI_KEY ? "on" : "off"})`,
+    `랑선답사 api → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"}, TourAPI: ${TOURAPI_KEY ? "on" : "off"}, ODsay: ${ROUTE_KEYS.odsayKey ? "on" : "off"}, 카카오: ${ROUTE_KEYS.kakaoKey ? "on" : "off"})`,
   );
 });

@@ -206,7 +206,7 @@ async function init() {
   bootComplete=true;updateStatus();
   if (new URLSearchParams(location.search).has('export')) {
     const {install}=await import('./export.js');
-    install({viewer,C,tilesets:[buildings,roads]});
+    install({viewer,C,tilesets:[buildings,roads],trip});
   }
 }
 

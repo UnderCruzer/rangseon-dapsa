@@ -1,0 +1,155 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.4 2390de5a",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-03T10:07:31Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 9497354785,
+  "lat": 35.6583489,
+  "lon": 139.7461233,
+  "timestamp": "2025-04-29T05:23:50Z",
+  "version": 6,
+  "changeset": 165574282,
+  "user": "Thanatica",
+  "uid": 2550888,
+  "tags": {
+    "bench": "no",
+    "bin": "no",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "lit": "yes",
+    "name": "東京タワー",
+    "note": "始発",
+    "operator": "東京都交通局",
+    "public_transport": "platform",
+    "shelter": "no",
+    "tactile_paving": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 9497354786,
+  "lat": 35.6584535,
+  "lon": 139.7462171,
+  "timestamp": "2025-04-29T05:23:52Z",
+  "version": 6,
+  "changeset": 165574282,
+  "user": "Thanatica",
+  "uid": 2550888,
+  "tags": {
+    "bench": "yes",
+    "bin": "no",
+    "bus": "yes",
+    "highway": "bus_stop",
+    "lit": "yes",
+    "name": "東京タワー",
+    "note": "降車専用",
+    "operator": "東京都交通局",
+    "public_transport": "platform",
+    "shelter": "no",
+    "tactile_paving": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 11436145877,
+  "lat": 35.6592800,
+  "lon": 139.7447670,
+  "timestamp": "2026-04-11T12:50:33Z",
+  "version": 4,
+  "changeset": 181187961,
+  "user": "pizzaiolo",
+  "uid": 1772368,
+  "tags": {
+    "amenity": "bicycle_rental",
+    "authentication:app": "yes",
+    "brand": "ドコモ・バイクシェア",
+    "brand:en": "Docomo Bike Share",
+    "brand:ja": "ドコモ・バイクシェア",
+    "brand:website": "https://docomo-cycle.jp/",
+    "brand:wikidata": "Q55533296",
+    "capacity": "15",
+    "fee": "yes",
+    "gbfs:name": "C1-15.東京タワー",
+    "gbfs:station_id": "10087",
+    "gbfs:system_id": "docomo-cycle",
+    "name": "東京タワー",
+    "name:en": "Tokyo Tower",
+    "name:ja": "東京タワー",
+    "operator": "ドコモ・バイクシェア",
+    "operator:en": "Docomo Bike Share",
+    "operator:ja": "ドコモ・バイクシェア",
+    "operator:type": "private",
+    "operator:wikidata": "Q55533296",
+    "ref": "C1-15"
+  }
+},
+{
+  "type": "relation",
+  "id": 4247312,
+  "timestamp": "2026-09-01T21:35:03Z",
+  "version": 19,
+  "changeset": 188390474,
+  "user": "Monolo23",
+  "uid": 17519482,
+  "center": {
+    "lat": 35.6585639,
+    "lon": 139.7454400
+  },
+  "members": [
+    {
+      "type": "way",
+      "ref": 30526374,
+      "role": "outer"
+    }
+  ],
+  "tags": {
+    "alt_name:zh": "東京塔",
+    "architect": "内藤多仲",
+    "architect:wikidata": "Q1340974",
+    "building": "yes",
+    "communication:radio": "fm",
+    "contact:facebook": "tokyotower.official",
+    "contact:instagram": "tokyotower_official",
+    "contact:tiktok": "tokyotower_official",
+    "contact:tripadvisor": "320047",
+    "contact:twitter": "nopponotouto",
+    "contact:website": "https://www.tokyotower.co.jp/",
+    "contact:youtube": "UCKyXyJMijwyBebgI9wmzFcw",
+    "fee": "yes",
+    "height": "333",
+    "man_made": "tower",
+    "material": "steel",
+    "name": "東京タワー",
+    "name:en": "Tokyo Tower",
+    "name:es": "Torre de Tokio",
+    "name:et": "Tokyo Tower",
+    "name:fr": "Tour de Tokyo",
+    "name:it": "Torre di Tokyo",
+    "name:ja": "東京タワー",
+    "name:ja-Hira": "とうきょうたわー",
+    "name:ja-Latn": "Tōkyō Tawā",
+    "name:ko": "도쿄 타워",
+    "name:zh": "東京鐵塔",
+    "official_name": "日本電波塔",
+    "official_name:en": "Japan Radio Tower",
+    "opening_hours": "Mo-Su 09:00-23:00",
+    "start_date": "1958-12-23",
+    "tourism": "attraction",
+    "tower:construction": "lattice",
+    "tower:type": "communication",
+    "type": "multipolygon",
+    "wheelchair": "yes",
+    "wikidata": "Q183536",
+    "wikimedia_commons": "Category:Tokyo Tower",
+    "wikipedia": "ja:東京タワー"
+  }
+}
+
+  ]
+}

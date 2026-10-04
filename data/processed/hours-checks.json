@@ -1,0 +1,57 @@
+[
+  {
+    "checked_at": "2026-10-03T10:14:16.106588+00:00",
+    "name": "芝公園",
+    "note": "Date-specific exceptions not verified. Original tag preserved.",
+    "official_fact": "park-hours",
+    "official_value": "24/7",
+    "osm_id": "way/30520683",
+    "osm_opening_hours": null,
+    "source_url": "https://www.tokyo-park.or.jp/park/siba/index.html",
+    "status": "osm_missing"
+  },
+  {
+    "checked_at": "2026-10-03T10:05:20.905080+00:00",
+    "name": "増上寺",
+    "note": "Date-specific exceptions not verified. Original tag preserved.",
+    "official_fact": "zojoji-main-hours",
+    "official_value": "06:00-17:30",
+    "osm_id": "way/744348814",
+    "osm_opening_hours": "24/7",
+    "source_url": "https://www.zojoji.or.jp/faq/",
+    "status": "scope_mismatch"
+  },
+  {
+    "checked_at": "2026-10-03T10:14:18.031094+00:00",
+    "name": "Le Pain Quotidien",
+    "note": "Date-specific exceptions not verified. Original tag preserved.",
+    "official_fact": "cafe-hours",
+    "official_value": "07:30-21:00",
+    "osm_id": "node/1145149963",
+    "osm_opening_hours": null,
+    "source_url": "https://www.princehotels.co.jp/tokyo/restaurant/lepainquotidien/",
+    "status": "osm_missing"
+  },
+  {
+    "checked_at": "2026-10-03T10:14:16.385541+00:00",
+    "name": "麻布台ヒルズマーケット",
+    "note": "Date-specific exceptions not verified. Original tag preserved.",
+    "official_fact": "market-hours",
+    "official_value": "10:00-20:00",
+    "osm_id": "node/14047630601",
+    "osm_opening_hours": "Mo-Su 10:00-20:00",
+    "source_url": "https://www.azabudai-hills.com/information/index.html",
+    "status": "matched_general_hours"
+  },
+  {
+    "checked_at": "2026-10-03T10:05:19.709714+00:00",
+    "name": "東京タワー",
+    "note": "Date-specific exceptions not verified. Original tag preserved.",
+    "official_fact": "tower-main-hours",
+    "official_value": "09:00-23:00",
+    "osm_id": "relation/4247312",
+    "osm_opening_hours": "Mo-Su 09:00-23:00",
+    "source_url": "https://en.tokyotower.co.jp/fee/",
+    "status": "matched_general_hours"
+  }
+]

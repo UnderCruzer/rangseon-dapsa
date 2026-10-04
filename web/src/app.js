@@ -54,6 +54,14 @@ function legWarning(prev, stop) {
   return "";
 }
 
+// 좌표 출처 표시. 데모 일정(verified 없음)은 손으로 확인한 좌표라 표시하지 않는다
+const SOURCE = {
+  tourapi: { label: "한국관광공사 확인", cls: "ok" },
+  osm: { label: "OpenStreetMap 확인", cls: "ok" },
+  false: { label: "좌표 미확인", cls: "warn" },
+};
+const sourceOf = (stop) => (stop.verified === undefined ? null : SOURCE[stop.verified] ?? null);
+
 function roadviewUrl({ lat, lng }) {
   const inKorea = lat > 33 && lat < 38.7 && lng > 124.5 && lng < 131.9;
   return inKorea
@@ -103,10 +111,11 @@ function renderList(trip) {
         ${warn ? `<span class="warn">⚠ ${warn}</span>` : ""}
       </div>`;
     li.querySelector(".name").textContent = stop.name;
-    if (stop.verified === false) {
+    const src = sourceOf(stop);
+    if (src) {
       const u = document.createElement("span");
-      u.className = "unverified";
-      u.textContent = "좌표 미확인";
+      u.className = `src ${src.cls}`;
+      u.textContent = src.label;
       li.querySelector(".name").append(u);
     }
     li.querySelector(".sub").textContent = `${stop.time} · ${stop.category} · ${stop.stay_minutes}분`;
@@ -147,6 +156,20 @@ function showCard(stop, i) {
   $("card-index").textContent = `${stop.day}일차 · ${i + 1}/${state.trip.stops.length}`;
   $("card-meta").textContent = `${stop.time} 도착 · ${stop.category} · ${stop.stay_minutes}분 체류`;
   $("card-name").textContent = stop.name;
+  const src = sourceOf(stop);
+  $("card-source").hidden = !src;
+  if (src) {
+    $("card-source").className = `source ${src.cls}`;
+    $("card-source").textContent = stop.address ? `${src.label} · ${stop.address}` : src.label;
+  }
+  const photo = $("card-photo");
+  photo.hidden = !stop.photo;
+  if (stop.photo) {
+    photo.src = stop.photo;
+    photo.alt = `${stop.name} 사진 (한국관광공사)`;
+  } else {
+    photo.removeAttribute("src");
+  }
   $("card-desc").textContent = stop.description;
   $("card-tip").textContent = stop.tip;
   $("card-move").textContent = stop.move_from_prev ? `이동: ${stop.move_from_prev}` : "";
@@ -256,7 +279,7 @@ async function onSubmit(e) {
     const { trip, demo } = await plan(prompt);
     setStatus(demo
       ? "데모 모드: Claude 키가 없어 샘플 일정을 보여줘요. (.env에 ANTHROPIC_API_KEY)"
-      : `${trip.stops.length}곳, 좌표 확인 ${trip.stops.filter((s) => s.verified).length}곳`);
+      : `${trip.stops.length}곳 · 한국관광공사 확인 ${trip.stops.filter((s) => s.verified === "tourapi").length}곳 · 미확인 ${trip.stops.filter((s) => s.verified === false).length}곳`);
     await startTrip(trip);
   } catch (err) {
     setStatus(`실패: ${err.message}`, "error");
@@ -356,6 +379,7 @@ async function main() {
   });
   sheet = new Sheet($("panel"), [document.querySelector(".sheet-handle"), document.querySelector("#panel .brand")]);
   $("enter").addEventListener("click", enterStop);
+  $("card-photo").addEventListener("error", (e) => { e.target.hidden = true; });
   setupNative({
     // 뒤로가기: 1인칭 → 지도. 지도에서는 앱 종료
     onBack: () => {

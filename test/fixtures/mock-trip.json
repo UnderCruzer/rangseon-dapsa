@@ -1,0 +1,28 @@
+{
+  "_comment": "목업 API용 일정. TourAPI 검증 결과 형태(verified/photo/address)를 화면에서 확인하기 위한 가짜 데이터이며 실제 관광 정보가 아님",
+  "title": "[목업] 부산 바다 산책",
+  "city": "부산",
+  "summary": "목업 데이터: 검증 출처 표시와 사진 자리 확인용",
+  "stops": [
+    {
+      "name": "해운대해수욕장", "query": "해운대해수욕장 부산", "lat": 35.1588157, "lng": 129.1586412,
+      "day": 1, "time": "10:00", "stay_minutes": 60, "category": "자연",
+      "description": "[목업] 한국관광공사 확인 + 사진이 있는 장소 표시 예시입니다.",
+      "tip": "[목업] 사진은 자리 표시용 그림입니다.", "move_from_prev": "",
+      "verified": "tourapi", "address": "부산광역시 해운대구 해운대해변로 264 (목업 주소)", "contentId": "mock-1",
+      "photo": "/mock-photo.svg"
+    },
+    {
+      "name": "더베이101", "query": "더베이101 부산", "lat": 35.1566, "lng": 129.1522,
+      "day": 1, "time": "12:00", "stay_minutes": 60, "category": "카페",
+      "description": "[목업] OpenStreetMap으로만 확인된 장소 예시입니다.",
+      "tip": "[목업]", "move_from_prev": "도보 10분", "verified": "osm"
+    },
+    {
+      "name": "광안리해수욕장", "query": "광안리해수욕장 부산", "lat": 35.1532, "lng": 129.1186,
+      "day": 1, "time": "14:00", "stay_minutes": 60, "category": "야경",
+      "description": "[목업] 좌표를 확인하지 못한 장소 예시입니다.",
+      "tip": "[목업]", "move_from_prev": "택시 20분", "verified": false
+    }
+  ]
+}

@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 import Anthropic from "@anthropic-ai/sdk";
 import { betaZodOutputFormat } from "@anthropic-ai/sdk/helpers/beta/zod";
 import * as z from "zod/v4";
+import { distanceKm } from "./lib/geo.js";
+import * as tourapi from "./lib/tourapi.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 // 개발 중에는 Vite(5173)가 화면을, 이 서버(8787)가 /api를 맡는다. 운영에서는 빌드된 dist/도 같이 서빙.
@@ -12,6 +14,7 @@ const STATIC_DIR = path.join(here, "dist");
 // API_PORT가 우선: 개발 도구가 PORT를 Vite 포트로 넣어 두는 경우가 있어서. 호스팅은 보통 PORT만 준다.
 const PORT = Number(process.env.API_PORT ?? process.env.PORT ?? 8787);
 const HAS_LLM = Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
+const TOURAPI_KEY = process.env.TOURAPI_KEY || null;
 
 const client = HAS_LLM ? new Anthropic() : null;
 
@@ -42,20 +45,11 @@ const SYSTEM = `당신은 현지 사정을 잘 아는 여행 플래너입니다.
 - 장소는 반드시 실존하는 곳만, 5~9곳. 좌표는 아는 한 정확하게.
 - 같은 날 안에서는 지리적으로 효율적인 순서로, 이동 시간이 비현실적이지 않게.
 - 요청에 기간이 없으면 당일치기로 가정.
-- 시간대가 풍경에 영향을 주는 곳(일몰, 야경)은 그 시간에 배치.`;
+- 시간대가 풍경에 영향을 주는 곳(일몰, 야경)은 그 시간에 배치.
+- 국내 장소 이름은 한국관광공사·지도 앱에 등록된 공식 명칭으로 쓴다 (예: "해운대해수욕장", "감천문화마을"). 부가 설명은 괄호로 뒤에.`;
 
-// ---------- 좌표 검증 (OSM Nominatim) ----------
+// ---------- 좌표 검증: TourAPI → OSM Nominatim ----------
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-function distanceKm(a, b) {
-  const R = 6371;
-  const dLat = ((b.lat - a.lat) * Math.PI) / 180;
-  const dLng = ((b.lng - a.lng) * Math.PI) / 180;
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos((a.lat * Math.PI) / 180) * Math.cos((b.lat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-}
 
 async function geocode(query) {
   const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`;
@@ -65,18 +59,32 @@ async function geocode(query) {
   return hit ? { lat: Number(hit.lat), lng: Number(hit.lon) } : null;
 }
 
-// LLM 좌표 근처(5km)에서 실제 POI가 잡히면 그 좌표로 교정. 못 찾으면 LLM 좌표 유지.
+// 1순위 TourAPI(공식 좌표·사진·주소), 2순위 Nominatim(LLM 좌표 5km 안), 둘 다 실패하면 LLM 좌표 유지
+// verified: "tourapi" | "osm" | false
 async function verifyStops(stops) {
   for (const stop of stops) {
+    if (TOURAPI_KEY) {
+      try {
+        const hit = await tourapi.lookup(TOURAPI_KEY, stop);
+        if (hit) {
+          Object.assign(stop, {
+            verified: "tourapi",
+            lat: hit.lat,
+            lng: hit.lng,
+            photo: hit.photo,
+            address: hit.address,
+            contentId: hit.contentId,
+          });
+          continue;
+        }
+      } catch (err) {
+        console.warn(`[tourapi] ${stop.name}:`, err.message);
+      }
+    }
     try {
       const hit = await geocode(stop.query);
-      if (hit && distanceKm(hit, stop) < 5) {
-        stop.verified = true;
-        stop.lat = hit.lat;
-        stop.lng = hit.lng;
-      } else {
-        stop.verified = false;
-      }
+      stop.verified = hit && distanceKm(hit, stop) < 5 ? "osm" : false;
+      if (stop.verified) Object.assign(stop, { lat: hit.lat, lng: hit.lng });
     } catch {
       stop.verified = false;
     }
@@ -165,5 +173,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`랑선답사 api → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"})`);
+  console.log(
+    `랑선답사 api → http://localhost:${PORT}  (Claude: ${HAS_LLM ? "on" : "off, 데모 모드"}, TourAPI: ${TOURAPI_KEY ? "on" : "off"})`,
+  );
 });

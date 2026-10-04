@@ -53,6 +53,8 @@
 
 ```
 server.js              API 서버 (/api/config, /api/plan) + 운영 시 dist/ 서빙
+lib/                   외부 API 모듈 (tourapi.js, geo.js). 순수 함수 + fetch 주입으로 테스트 가능하게
+test/                  node --test 테스트, fixtures/(손으로 만든 고정 응답), mock-api.mjs
 vite.config.js         Vite 설정 (root: web, 개발 중 /api → 8787 프록시)
 web/
   index.html           화면 뼈대
@@ -81,6 +83,8 @@ dist/                  빌드 결과 (커밋하지 않음)
 npm install
 cp .env.example .env   # 키는 선택
 npm run dev            # 웹 http://localhost:5173 + API :8787
+npm run dev:mock       # 키 없이 화면 확인: 목업 API(고정 일정) + 웹
+npm test               # 외부 API 파서·매칭 테스트 (고정 응답 사용)
 npm run build          # dist/ 생성
 npm start              # API + dist/ 서빙 (운영과 같은 구성)
 ```
@@ -88,6 +92,7 @@ npm start              # API + dist/ 서빙 (운영과 같은 구성)
 | 환경변수 | 어디서 | 설명 |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | 서버 | 있으면 실제 일정 생성, 없으면 데모 |
+| `TOURAPI_KEY` | 서버 | 한국관광공사 KorService2. 있으면 장소 검증 1순위(좌표·사진·주소), 없으면 Nominatim |
 | `GOOGLE_MAPS_API_KEY` | 서버 → `/api/config`로 전달 | 있으면 실사 3D 토글 |
 | `API_PORT` / `PORT` | 서버 | API 포트. `API_PORT` 우선 (기본 8787) |
 | `VITE_API_BASE` | 웹 빌드 | 앱처럼 API가 다른 출처에 있을 때 서버 주소 |
@@ -116,3 +121,4 @@ npm run android:run   # 연결된 기기·에뮬레이터에 설치하고 실행
 - 검증 없이 LLM이 준 좌표로 "도착" 연출하기
 - 샘플·생성 장면을 실제 장소처럼 보여주기
 - 라이선스 확인 없이 외부 모델·에셋을 번들에 포함하기 (출처는 `scenes.js`나 README에 기록)
+- 고정 응답(fixture)이나 목업 데이터를 실제 데이터처럼 쓰기. 목업은 `[목업]`으로 표시하고 `_comment`에 출처를 적는다

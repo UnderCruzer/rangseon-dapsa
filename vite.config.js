@@ -12,6 +12,7 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    proxy: { "/api": `http://localhost:${API_PORT}` },
+    // /mock-photo.svg는 npm run dev:mock 전용 (목업 API가 줌)
+    proxy: { "/api": `http://localhost:${API_PORT}`, "/mock-photo.svg": `http://localhost:${API_PORT}` },
   },
 });

@@ -1,0 +1,26 @@
+{
+  "dataset-metadata.json": {
+    "url": "https://www.geospatial.jp/ckan/api/3/action/package_show?id=plateau-13103-minato-ku-2025",
+    "fetched_at": "2026-10-03T11:51:41.876701+00:00",
+    "sha256": "58764e5927dc226234e29fc5c68ef8a82bd20dfb675c12ba9b4f49ae89de8f51",
+    "bytes": 170468,
+    "snapshot": "data/phase1/dataset-metadata.json.gz",
+    "license_url": "https://www.mlit.go.jp/plateau/site-policy/"
+  },
+  "13103_bldg_lod3.b3dm": {
+    "url": "https://assets.cms.plateau.reearth.io/assets/c7/ffcc73-1d33-434b-a49a-aa0289160814/13103_minato-ku_pref_2025_citygml_1_op_bldg_3dtiles_13103_minato-ku_lod3/data/data248.b3dm",
+    "fetched_at": "2026-10-03T11:51:42.426874+00:00",
+    "sha256": "1e198d6ba3ab238eadd36a00e55600c927c40f6e7f40f3d62456ab3141bb4ff8",
+    "bytes": 2306880,
+    "snapshot": "data/phase1/13103_bldg_lod3.b3dm.gz",
+    "license_url": "https://www.mlit.go.jp/plateau/site-policy/"
+  },
+  "13103_tran_lod3.b3dm": {
+    "url": "https://assets.cms.plateau.reearth.io/assets/87/884fad-ac86-4b58-8672-9f3d7bdbd44c/13103_minato-ku_pref_2025_citygml_1_op_tran_3dtiles_lod3/data/0/data898.b3dm",
+    "fetched_at": "2026-10-03T11:51:42.570162+00:00",
+    "sha256": "de19e8bad893588330cf31e615fc4ef51be1597c66009d57701014b049dc6c07",
+    "bytes": 291768,
+    "snapshot": "data/phase1/13103_tran_lod3.b3dm.gz",
+    "license_url": "https://www.mlit.go.jp/plateau/site-policy/"
+  }
+}

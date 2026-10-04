@@ -5,3 +5,6 @@ dist
 # Official page bodies are local evidence only; facts and hashes are tracked.
 data/snapshots/*.html
 __pycache__/
+
+# Per-frame PNGs from world-model input export; the encoded mp4s and manifest are tracked.
+data/phase1/exports/*/frames/

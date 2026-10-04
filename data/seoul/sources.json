@@ -1,0 +1,20 @@
+{
+  "osm-anchor": {
+    "url": "https://overpass-api.de/api/interpreter",
+    "query": "[out:json][timeout:60];relation(16474080);out center meta;",
+    "license": "ODbL-1.0",
+    "fetched_at": "2026-10-04T03:50:02.057054+00:00",
+    "sha256": "bab84c2a4edf1b8a413ea1dafa48adaef254bfaef03cf6ad104a3dd4f29cab33",
+    "bytes": 1796,
+    "snapshot": "data/seoul/snapshots/osm-anchor.json.gz"
+  },
+  "osm-area": {
+    "url": "https://overpass-api.de/api/interpreter",
+    "query": "[out:json][timeout:180];(nwr(around:1500,37.5512605,126.98822);way[\"highway\"](around:2200,37.5512605,126.98822););out meta geom;",
+    "license": "ODbL-1.0",
+    "fetched_at": "2026-10-04T03:50:22.725388+00:00",
+    "sha256": "7ed0491bc7db6a5268bd5b2d85b430b3d6ec8baf5e09807165629a0a90a68386",
+    "bytes": 37874608,
+    "snapshot": "data/seoul/snapshots/osm-area.json.gz"
+  }
+}

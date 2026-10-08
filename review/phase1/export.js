@@ -15,7 +15,7 @@ export const PATHS = {
   // Eye level along the Day 1 OSM walking leg Azabudai Hills → Tokyo Tower (distances along
   // the leg, meters). Height follows the PLATEAU road surface or terrain, buildings excluded.
   'tower-walk': {
-    walk: {leg: 3, from: 700, to: 715, eye: 1.6, lookAhead: 20, pitch: 6}, fov: 75, depth: [3, 1500],
+    walk: {leg: 3, from: 700, to: 710, eye: 1.6, lookAhead: 20, pitch: 6}, fov: 75, depth: [3, 1500],
   },
 };
 

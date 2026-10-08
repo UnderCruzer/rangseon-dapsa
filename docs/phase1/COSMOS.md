@@ -1,4 +1,30 @@
-# 월드모델 실사화 실행 — Cosmos-Transfer2.5
+# 월드모델 실사화 실행 — Cosmos 3 (Transfer2.5 대체)
+
+> 2026-06 NVIDIA가 Cosmos 3를 내놓으며 Cosmos-Transfer2.5 리포는 유지보수만 한다고 공지했다. 1단계는 **Cosmos3-Nano(16B)** depth transfer로 실행한다. 아래 Transfer2.5 절차는 비교용으로 남긴다.
+
+## Cosmos3-Nano depth transfer (1단계)
+
+| 항목 | 값 |
+|---|---|
+| 모델 | `nvidia/Cosmos3-Nano` (Hugging Face 비공개 동의 없음, OpenMDW-1.1) |
+| 메모리 | 720p 1-GPU 최대 약 46GiB (vLLM-Omni 레시피 기준, diffusers 실측 전) → **80GB GPU 권장** |
+| 입력 | `export_frames.mjs --frames 121 --fps 30` 의 `depth.mp4` (가까울수록 밝음, 하늘 0 — 공식 예시와 같은 표기) |
+| 설정 | NVIDIA cookbook `specs/depth.json` 값: 50 step, guidance 3.0, control_guidance 1.5, shift 10, seed 2026 |
+| 프롬프트 | `scripts/phase1/cosmos3/<path>-<day>.json` (cookbook과 같은 구조화 JSON, 간판 문구는 비움) |
+| 안전 필터 | depth·edge는 cookbook과 같이 끔 (blur·seg는 Cosmos-1.0-Guardrail 동의 필요) |
+
+```sh
+# GPU 머신 (리포를 /workspace/rangseon-dapsa에 둔다고 가정)
+bash scripts/phase1/cosmos_pod.sh setup3
+bash scripts/phase1/cosmos_pod.sh run3 data/phase1/exports/tower-walk scripts/phase1/cosmos3/tower-walk-day.json tower-walk-day
+# → /workspace/outputs/tower-walk-day/{vision.mp4, run.json}
+```
+
+`run.json`: 모델 리비전, diffusers·torch 버전, GPU, 최대 메모리, 로딩·생성 시간, 파라미터, 입력·출력 해시.
+
+---
+
+# (비교용) Cosmos-Transfer2.5
 
 실제 PLATEAU 3D 렌더(RGB)와 **실제 형상에서 계산한 depth**를 조건으로 넣어 실사 영상을 만든다. 결과는 AI 생성 영상이며 관측 사진이 아니다. 화면에는 항상 "AI 생성 장면"으로 표시한다.
 

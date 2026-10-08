@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Run on the GPU machine (Linux x86-64, NVIDIA Ampere+, CUDA 12.8 driver).
-#   cosmos_pod.sh setup                      install Cosmos-Transfer2.5 under $WORK
-#   cosmos_pod.sh run <spec.json> <name>     run one spec and write outputs/<name>/run.json
-# HF_TOKEN must be set in the environment by the account owner (e.g. RunPod env vars), with the
-# NVIDIA Open Model License accepted on Hugging Face. This script never asks for or stores it.
+#   cosmos_pod.sh setup3                               Cosmos3 (diffusers) venv + NVIDIA negative prompt
+#   cosmos_pod.sh run3 <export dir> <prompt.json> <name>  depth transfer → outputs/<name>/{vision.mp4,run.json}
+#   cosmos_pod.sh setup | run <spec.json> <name>       Cosmos-Transfer2.5 (maintenance-only upstream)
+# Cosmos3-Nano is not gated. Transfer2.5 needs HF_TOKEN set by the account owner (e.g. RunPod env
+# vars) with the NVIDIA Open Model License accepted. This script never asks for or stores tokens.
 set -euo pipefail
 
 WORK=${WORK:-/workspace}
@@ -50,8 +51,34 @@ print('wrote', out / 'run.json')
 EOF
 }
 
+COSMOS3_VENV=$WORK/.venv-cosmos3
+NEGATIVE=$WORK/cosmos3-negative_prompt.json
+
+setup3() {
+  apt-get update -qq && apt-get install -y -qq ffmpeg libxcb1 libgl1 libglib2.0-0
+  curl -LsSf https://astral.sh/uv/install.sh | sh   # cookbook needs uv >= 0.11.3
+  export PATH="$HOME/.local/bin:$PATH" UV_LINK_MODE=copy
+  uv venv "$COSMOS3_VENV" --python 3.13 --seed --managed-python --allow-existing
+  uv pip install --python "$COSMOS3_VENV/bin/python" --torch-backend=cu128 \
+    "diffusers @ git+https://github.com/huggingface/diffusers.git" \
+    accelerate av huggingface_hub imageio imageio-ffmpeg torch torchvision transformers
+  curl -fsSL -o "$NEGATIVE" \
+    https://raw.githubusercontent.com/NVIDIA/cosmos/main/cookbooks/cosmos3/generator/transfer/assets/negative_prompt.json
+  "$COSMOS3_VENV/bin/python" -c "import torch, diffusers; print(diffusers.__version__, torch.__version__, torch.cuda.is_available())"
+  nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv
+}
+
+run3() {
+  local input=$1 prompt=$2 name=$3
+  "$COSMOS3_VENV/bin/python" "$(dirname "$0")/cosmos3_transfer.py" \
+    --input "$input" --prompt "$prompt" --negative "$NEGATIVE" --out "$WORK/outputs/$name" \
+    2>&1 | tee "$WORK/outputs/$name.log"
+}
+
 case ${1:-} in
+  setup3) setup3 ;;
+  run3) mkdir -p "$WORK/outputs"; run3 "$2" "$3" "$4" ;;
   setup) setup ;;
   run) run "$2" "$3" ;;
-  *) echo "usage: $0 setup | run <spec.json> <name>" >&2; exit 2 ;;
+  *) echo "usage: $0 setup3 | run3 <export dir> <prompt.json> <name> | setup | run <spec.json> <name>" >&2; exit 2 ;;
 esac

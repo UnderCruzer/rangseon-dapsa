@@ -1,0 +1,65 @@
+{
+  "subjects": [
+    {
+      "description": "Tokyo Tower, a tall red-and-white painted steel lattice tower, seen from street level",
+      "appearance_details": "International orange and white bands, dense steel lattice, observation deck high above the street",
+      "relationship": "Landmark the street leads toward",
+      "location": "Right side of frame, from midground rising out of the top edge",
+      "relative_size": "Very large, dominating the right half",
+      "orientation": "Static structure",
+      "pose": "Upright",
+      "action": "None; grows slightly larger as the camera advances",
+      "state_changes": "Shifts gently right and grows as the camera moves forward.",
+      "number_of_subjects": 1
+    },
+    {
+      "description": "A few pedestrians walking on the sidewalks",
+      "appearance_details": "Ordinary office and travel clothing, small and indistinct at distance",
+      "relationship": "Incidental passers-by populating the street",
+      "location": "Sidewalks in the midground and background",
+      "relative_size": "Small within frame",
+      "orientation": "Mixed directions",
+      "pose": "Upright, walking",
+      "action": "Walking at a normal pace",
+      "state_changes": "Move naturally along the sidewalks.",
+      "number_of_subjects": 4
+    }
+  ],
+  "background_setting": "A clean urban street in central Tokyo near Tokyo Tower. Concrete and glass mid-rise office buildings line the left side, the street continues straight ahead to a distant intersection with high-rise towers on the skyline. Asphalt road with white lane markings and paved sidewalks.",
+  "lighting": {
+    "conditions": "Clear sunny afternoon",
+    "direction": "Sunlight from the upper left",
+    "shadows": "Crisp building shadows across the street and sidewalk",
+    "illumination_effect": "Bright natural daylight with realistic reflections on glass facades"
+  },
+  "aesthetics": {
+    "composition": "One-point perspective down the street with Tokyo Tower framing the right side",
+    "color_scheme": "Clear blue sky, neutral gray concrete and asphalt, red and white of the tower",
+    "mood": "Calm, everyday city walk"
+  },
+  "cinematography": {
+    "camera_motion": "Slow steady forward walking shot at eye level",
+    "framing": "Wide shot of the street with the tower on the right",
+    "camera_angle": "Eye-level, about 1.6 meters above the ground, tilted slightly upward",
+    "depth_of_field": "Deep",
+    "focus": "Sharp focus throughout"
+  },
+  "style_medium": "Live-action video",
+  "artistic_style": "Documentary, observational realism",
+  "context": "First-person preview of walking toward Tokyo Tower before a trip",
+  "actions": [
+    {"time": "0:00-0:02", "description": "Camera walks steadily forward along the street; Tokyo Tower occupies the right side, office buildings on the left."},
+    {"time": "0:02-0:04", "description": "Camera continues forward; the tower grows slightly and the street ahead opens toward the intersection."}
+  ],
+  "text_and_signage_elements": [],
+  "segments": [
+    {"segment_index": 0, "time_range": "0:00-0:04", "description": "A continuous eye-level forward walk along a sunny Tokyo street toward Tokyo Tower."}
+  ],
+  "transitions": [],
+  "temporal_caption": "The camera walks slowly forward at eye level along a quiet, sunlit street in central Tokyo. Tokyo Tower rises on the right in red and white steel lattice, while concrete and glass office buildings line the left. The street runs straight ahead to a distant intersection with high-rise towers. A few pedestrians walk along the sidewalks. The layout of buildings, roads and the tower stays exactly as given; no structures are added or removed.",
+  "audio_description": "Quiet city ambience, distant traffic, footsteps; no dialogue or music.",
+  "resolution": {"W": 1280, "H": 720},
+  "aspect_ratio": "16,9",
+  "duration": "4s",
+  "fps": 30
+}

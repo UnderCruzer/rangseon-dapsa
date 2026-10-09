@@ -8,3 +8,6 @@ __pycache__/
 
 # Per-frame PNGs from world-model input export; the encoded mp4s and manifest are tracked.
 data/phase1/exports/*/frames/
+
+# Seoul processed outputs are regenerated offline from hashed snapshots.
+data/seoul/processed/

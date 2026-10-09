@@ -16,5 +16,831 @@
     "sha256": "7ed0491bc7db6a5268bd5b2d85b430b3d6ec8baf5e09807165629a0a90a68386",
     "bytes": 37874608,
     "snapshot": "data/seoul/snapshots/osm-area.json.gz"
+  },
+  "vworld-spbd": {
+    "url": "https://api.vworld.kr/req/data",
+    "layer": "LT_C_SPBD 도로명주소 건물 (제공처 행정안전부)",
+    "license": "브이월드 오픈API 이용약관 (재배포 조건 확인 필요)",
+    "fetched_at": "2026-10-09T12:22:51.577411+00:00",
+    "note": "Requests stored without the API key.",
+    "responses": [
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell000-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.971224,37.537786,126.976224,37.542786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "155bc97a5557ba3611a2d22c14f4bd9ecba92ab240ba381e03bb9189e4c22b5d",
+        "bytes": 114391
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell001-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.976224,37.537786,126.981224,37.542786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "ec9bb675f8ac7c1700673a49ebd9f836a0d29574aa1c95ca877b0d2d6d71b70e",
+        "bytes": 3199
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell002-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.981224,37.537786,126.986224,37.542786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "809fce57728c829e6345aa7a9ddc9ed4dc81a91be10d3a00448afc7efefe64e5",
+        "bytes": 121542
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell003-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.986224,37.537786,126.991224,37.542786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "98d82a5e3c6a92093e3ea0a8fac377c25878460c10947122be7dde1e98ca3e43",
+        "bytes": 493348
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell004-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.991224,37.537786,126.996224,37.542786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "a995a2e3a743b43f53ccc19b0adac6d011ddbb67718e296470f95f3630ec8ed2",
+        "bytes": 557056
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell005-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.996224,37.537786,127.001224,37.542786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "2bb8d323cd679ef55728c8876c140862ca7d4cd301f5a1e07bcafbad2468e33d",
+        "bytes": 65530
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell006-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(127.001224,37.537786,127.005216,37.542786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "cc2b7ffcb45a7b22b1235011aa9c5878944c5387d2577760e18de9f12e020a5d",
+        "bytes": 125852
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell007-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.971224,37.542786,126.976224,37.547786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "25c46e034d79d808f3a8fedde8b0452f356f1f615b95aca919f59917ed63153e",
+        "bytes": 415776
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell008-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.976224,37.542786,126.981224,37.547786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "176967b14ba217d1aa56172a5f3b153b9739f8699d7c8bbad42c27360ba9965d",
+        "bytes": 283909
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell009-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.981224,37.542786,126.986224,37.547786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "a612ad176cd237da1d3e6ba8f8540009148323e13eccfba7b070256a362a08eb",
+        "bytes": 632394
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell009-p2.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.981224,37.542786,126.986224,37.547786)",
+          "size": "1000",
+          "page": "2",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "07c965690f996aa6a82404557cccf13f531fbee682f42cc12af175140c1016c2",
+        "bytes": 92941
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell010-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.986224,37.542786,126.991224,37.547786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "b6995f03701883da3ff56d0f0686ef4e2b50fd68e58fbe74c7530ff4f0c91c14",
+        "bytes": 291938
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell011-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.991224,37.542786,126.996224,37.547786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "a795e9355aa9c2a6c27f43161bf6c92239e486437df871044cf32cde134f9f20",
+        "bytes": 1186
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell012-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.996224,37.542786,127.001224,37.547786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "09f0e11e3bd479a34dcb468d8f4a90e4ece719881cf84d40facb9d53a43afa95",
+        "bytes": 15242
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell013-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(127.001224,37.542786,127.005216,37.547786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "3921d4c97ded6764435f4d291118716e6344fa234de2143313c95745d5ff5018",
+        "bytes": 95602
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell014-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.971224,37.547786,126.976224,37.552786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "1e8f3d7e030437b37aef1b903b558bb8a10635d29049dc6e405196802ffec00a",
+        "bytes": 477980
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell015-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.976224,37.547786,126.981224,37.552786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "82ac359d03e054376ee2e868558d8ab1cef1fc55dd87acc00f2c541e714ff2c4",
+        "bytes": 623611
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell016-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.981224,37.547786,126.986224,37.552786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "fe3ed4568b8dc6d20708488af4259cc9a8397ac1f3808f11686306f9b29fd902",
+        "bytes": 198888
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell017-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.986224,37.547786,126.991224,37.552786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "8bd31464c0050ecbdaf4bbd95119f2582647741b209fc18b583191273a7a476e",
+        "bytes": 4401
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell018-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.991224,37.547786,126.996224,37.552786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "9c7a2269c47c0099bbca295f7cc0c8a1939db30a5c45dc9b1f1ad806733d9806",
+        "bytes": 1993
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell019-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.996224,37.547786,127.001224,37.552786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "8f2811f87318261f31d1af372aeddec6797c1e5ab9108919937971ad6ef89b4c",
+        "bytes": 8967
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell020-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(127.001224,37.547786,127.005216,37.552786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "bd088a1f1236498e02e8fe4566838ba8514bb341b68dfb98f1becc5e7ec7be1c",
+        "bytes": 107787
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell021-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.971224,37.552786,126.976224,37.557786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "8c4694d005981d7819aea314fccc1a5d40d5ae5bf43276ef92d8ab20405e8c02",
+        "bytes": 130820
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell022-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.976224,37.552786,126.981224,37.557786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "e350be60566d001873c01e37b83158b29d6a30a71f6d651677d28586c210226a",
+        "bytes": 346716
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell023-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.981224,37.552786,126.986224,37.557786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "05c5ca19c61e8898c82404956c67a1a3201cba2bda6e15915f45f6730f2e96cb",
+        "bytes": 159152
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell024-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.986224,37.552786,126.991224,37.557786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "3c740bdc815a97005f6005e28fd725fdf6fdff5b5a12c4194b74f59ae987adcc",
+        "bytes": 24434
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell025-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.991224,37.552786,126.996224,37.557786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "0ffdac3d4eb544b872f15ee174f7ea8c2a87d71467d26e753279f85341ed3ce6",
+        "bytes": 142706
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell026-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.996224,37.552786,127.001224,37.557786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "a6e5e061f1a1aaad04c6e735df3e07c8ad4444290b3129f14a78dd177a97d960",
+        "bytes": 68451
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell027-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(127.001224,37.552786,127.005216,37.557786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "bd74c59d255246f5d1662418665725fbf0873cd828dc60e946a2cc01ba8a65cb",
+        "bytes": 73249
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell028-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.971224,37.557786,126.976224,37.562786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "2b7e866201de8e3317614f5ae3ec34da23ed321042c036e738db7381d23e7140",
+        "bytes": 121302
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell029-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.976224,37.557786,126.981224,37.562786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "d72b6b68a4db1650f6b82a6dd33baa89d676a9b02da05d0f0c328946bbae3f01",
+        "bytes": 406634
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell030-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.981224,37.557786,126.986224,37.562786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "b6bdec21312260251b497dec9ef0b2c8c7445f52ffbccc39310d3fd6bf024637",
+        "bytes": 338490
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell031-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.986224,37.557786,126.991224,37.562786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "3250e8edd62212f9e723cec5808c3325061681c852c3bfa72e76d7b697fb23b0",
+        "bytes": 241691
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell032-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.991224,37.557786,126.996224,37.562786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "05d4454314cd1bb4c11a80778271c04f33447964dd8fdc71cad5f5accc2fccce",
+        "bytes": 335657
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell033-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.996224,37.557786,127.001224,37.562786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "ab1c7042fda1fa84ea3f62dcbae4c9e712ac7cf602b8bb8185f309e0a8e33880",
+        "bytes": 432798
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell034-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(127.001224,37.557786,127.005216,37.562786)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "8a6fe007d6e1063bb11ce78a539a5fbeb7c4f7a142d6596477cb037e3f7664cd",
+        "bytes": 344077
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell035-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.971224,37.562786,126.976224,37.564735)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "ab01f9f4b96719d1b8303f3fcad5a000bdbcbc7e5160439e10332c9ab0a8f21d",
+        "bytes": 64609
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell036-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.976224,37.562786,126.981224,37.564735)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "3ba2d47846705d0d39036d95ddaf522adcb0d68c8d96b38a95180ffcc2081cc2",
+        "bytes": 90570
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell037-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.981224,37.562786,126.986224,37.564735)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "72b58d838b6301c98f70508d4a4e09ba25f3dcd5ecd11f4085a76627dd7e62a4",
+        "bytes": 155316
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell038-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.986224,37.562786,126.991224,37.564735)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "86776539fb66fe2c560ba0d536894d820e0694a4e3eff6105ee6913c635b16a6",
+        "bytes": 109889
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell039-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.991224,37.562786,126.996224,37.564735)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "0f8079acf6910257845a224e84a6a624c9c0b00b60adfbe729a341acf172e752",
+        "bytes": 321627
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell040-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(126.996224,37.562786,127.001224,37.564735)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "52f01ce2492c4c4e5c6e5e3497626d8673fc6668c5cc1dd1f1e6365852ef2abe",
+        "bytes": 230376
+      },
+      {
+        "snapshot": "data/seoul/snapshots/vworld-spbd/cell041-p1.json.gz",
+        "params": {
+          "service": "data",
+          "request": "GetFeature",
+          "data": "LT_C_SPBD",
+          "domain": "http://localhost",
+          "geomFilter": "BOX(127.001224,37.562786,127.005216,37.564735)",
+          "size": "1000",
+          "page": "1",
+          "format": "json",
+          "crs": "EPSG:4326",
+          "geometry": "true",
+          "attribute": "true"
+        },
+        "status": "OK",
+        "sha256": "3770da1258b5dd291fb2b3620e34277ddd507a430f84f855630345b3bc61b9c7",
+        "bytes": 157244
+      }
+    ]
   }
 }

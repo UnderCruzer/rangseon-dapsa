@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>남산 건물 미리보기 · 랑선답사</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.145.0/Build/Cesium/Widgets/widgets.css">
+  <style>
+    html,body,#map{margin:0;width:100%;height:100%;background:#dfe6e2;font-family:-apple-system,"Apple SD Gothic Neo",sans-serif}
+    .note{position:absolute;left:16px;top:16px;max-width:360px;background:#fffffff0;border-radius:12px;padding:14px 16px;color:#20332f;font-size:13px;line-height:1.5;box-shadow:0 4px 18px #0002}
+    .note b{display:block;font-size:16px;margin-bottom:4px}
+    .key span{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 10px;vertical-align:-1px}
+    #status{margin-top:6px;color:#55665f}
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="note"><b>남산 N서울타워 반경 1.5km 건물</b>
+    출처: 브이월드 도로명주소 건물(행정안전부). 높이는 <strong>지상층수 × 3.3m 추정</strong>이며 실측이 아니다. <strong>지형 미반영(평지)</strong>.
+    <div class="key"><span style="background:#8fa39a"></span>층수 있음<span style="background:#e0a340"></span>층수 없음(3m로 표시)</div>
+    <div id="status">불러오는 중…</div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/cesium@1.145.0/Build/Cesium/Cesium.js"></script>
+  <script type="module">
+    const C = window.Cesium;
+    const FLOOR_M = 3.3; // assumption for a model-input preview, not a measured height
+    C.Ion.defaultAccessToken = '';
+    const viewer = new C.Viewer('map', {baseLayer:false, baseLayerPicker:false, geocoder:false, homeButton:false,
+      sceneModePicker:false, navigationHelpButton:false, fullscreenButton:false, animation:false, timeline:false,
+      infoBox:false, selectionIndicator:false, requestRenderMode:true,
+      contextOptions:{webgl:{preserveDrawingBuffer:true}}});
+    viewer.scene.globe.baseColor = C.Color.fromCssColorString('#d6ddd8');
+    viewer.scene.skyAtmosphere.show = true;
+    const gj = await (await fetch('/data/seoul/processed/vworld-spbd.geojson')).json();
+    const instances = {known: [], unknown: []};
+    for (const f of gj.features) {
+      const floors = Number(f.properties.gro_flo_co) || 0;
+      const polys = f.geometry.type === 'MultiPolygon' ? f.geometry.coordinates : [f.geometry.coordinates];
+      for (const poly of polys) {
+        const outer = poly[0].flat();
+        if (outer.length < 6) continue;
+        instances[floors > 0 ? 'known' : 'unknown'].push(new C.GeometryInstance({
+          geometry: new C.PolygonGeometry({polygonHierarchy: new C.PolygonHierarchy(C.Cartesian3.fromDegreesArray(outer)),
+            height: 0, extrudedHeight: floors > 0 ? floors * FLOOR_M : 3, vertexFormat: C.PerInstanceColorAppearance.VERTEX_FORMAT}),
+          attributes: {color: C.ColorGeometryInstanceAttribute.fromColor(C.Color.fromCssColorString(floors > 0 ? '#8fa39a' : '#e0a340'))},
+        }));
+      }
+    }
+    for (const list of Object.values(instances)) if (list.length)
+      viewer.scene.primitives.add(new C.Primitive({geometryInstances: list, appearance: new C.PerInstanceColorAppearance({translucent:false})}));
+    const known = gj.features.filter(f => Number(f.properties.gro_flo_co) > 0).length;
+    document.getElementById('status').textContent = `${gj.features.length}동 · 층수 있음 ${known}동`;
+    viewer.camera.setView({destination: C.Cartesian3.fromDegrees(126.9882, 37.5345, 1400),
+      orientation: {heading: 0, pitch: C.Math.toRadians(-35), roll: 0}});
+    viewer.scene.requestRender();
+    window.__ready = new Promise(r => { const t = setInterval(() => { viewer.scene.requestRender(); if (viewer.scene.primitives.length && viewer.scene.globe.tilesLoaded) { clearInterval(t); setTimeout(r, 1500); } }, 300); });
+  </script>
+</body>
+</html>

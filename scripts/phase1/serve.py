@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
-ALLOWED = ('review/phase0', 'review/phase1', 'data')
+ALLOWED = ('review/phase0', 'review/phase1', 'review/seoul', 'data')
 
 
 class Handler(SimpleHTTPRequestHandler):
